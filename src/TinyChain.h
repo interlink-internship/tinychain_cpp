@@ -9,6 +9,8 @@
 #include <vector>
 #include <mutex>
 #include <utility>
+#include <cassert>
+#include <algorithm>
 
 #include "Block.h"
 #include "Transaction.h"
@@ -16,18 +18,23 @@
 #include "UnspentTxOut.h"
 #include "LocatedBlock.h"
 #include "TxoutForTxin.h"
+#include "BlockValidationError.h"
 
 class TinyChain {
     public:
+        using BlockChain = std::vector<std::shared_ptr<Block>>;
+
         std::shared_ptr<Block> genesisBlock;
 
         // The highest proof-of-work, valid blockchain.
         //
         // #realname chainActive
-        std::vector<std::shared_ptr<Block>> activeChain;
+        BlockChain activeChain;
 
         // Branches off of the main chain.
-        std::vector<std::vector<std::shared_ptr<Block>>> sideBranches;
+        std::vector<BlockChain> sideBranches;
+
+        std::vector<std::shared_ptr<Block>> orphanBlocks;
 
         // Synchronize access to the active chain and side branches.
         std::mutex chainLock;
@@ -63,7 +70,7 @@ class TinyChain {
         }
 
 
-        std::shared_ptr<LocatedBlock> locateBlock(const std::string blockHash, std::vector<std::shared_ptr<Block>> chain) {
+        std::shared_ptr<LocatedBlock> locateBlock(const std::string blockHash, BlockChain chain) {
             std::lock_guard<std::mutex> lock(this->chainLock);
             int chainIdx = 0, height = 0;
             if(chain.size() != 0) {
@@ -95,14 +102,107 @@ class TinyChain {
             return std::make_shared<LocatedBlock>(nullptr, 0, 0);
         }
 
-        std::shared_ptr<TxoutForTxin> findTxoutForTxin(std::shared_ptr<TxIn> txin, std::vector<std::shared_ptr<Block>> chain) {
+        int connectBlock(std::shared_ptr<Block> block, const bool doingReorg) {
+            std::lock_guard<std::mutex> lock(this->chainLock);
+            //Accept a block and return the chain index we append it to.
+            // Only exit early on already seen in active_chain when reorging.
+            const auto res = doingReorg
+                                ? locateBlock(block->id(), activeChain)
+                                : locateBlock(block->id(), BlockChain());
+            if(res->block != nullptr) {
+                std::cout << "ignore block already seen: " << block->id() << "\n";
+                return -1;
+            }
+
+            int chainIdx = 0;
+            try {
+                //auto validateRes = validateBlock(block);
+                //block = validateRes.first;
+                //chainIdx = validateRes.second;
+            } catch(const BlockValidationError& e) {
+                std::cout << "block " << block->id() << " failed validation\n";
+                if(e.toOrpan != nullptr) {
+                    std::cout << "saw orphan block " << block->id() << "\n";
+                    this->orphanBlocks.push_back(e.toOrpan);
+                }
+            }
+
+            // If `validate_block()` returned a non-existent chain index, we're
+            // creating a new side branch.
+            if(chainIdx != this->activeChainIndex && this->sideBranches.size() < chainIdx) {
+                std::cout << "creating a new side branch (idx " << chainIdx << ") for block " << block->id() << "\n";
+                this->sideBranches.push_back(BlockChain());
+            }
+
+            std::cout << "connecting block " << block->id() << " to chain " << chainIdx << "\n";
+            auto chain = (chainIdx == this->activeChainIndex)
+                            ? this->activeChain
+                            : this->sideBranches[chainIdx - 1];
+            chain.push_back(block);
+
+            // If we added to the active chain, perform upkeep on utxo_set and mempool.
+            if(chainIdx == this->activeChainIndex) {
+                for(const auto& tx: block->txns) {
+                    //mempool.pop(tx->id(), nullptr);
+
+                    if(!tx->isCoinbase()) {
+                        for(const auto& txin: tx->txins) {
+                            //rmFromUtxo(txin->toSpend);
+                        }
+                        int i = 0;
+                        for(const auto& txout: tx->txouts) {
+                            //addToUxto(txout, tx, i, tx->isCoinbase(), chain.size());
+                            ++i;
+                        }
+                    }
+                }
+            }
+
+            if( (!doingReorg && reorgIfNecessary()) || chainIdx == this->activeChainIndex) {
+                //mine_interrupt.set();
+                std::cout << "block accepted height=" << (this->activeChain.size()-1) << " txns=" << block->txns.size() << "\n";
+            }
+            /*
+            for(const auto peer: peerHostnames) {
+                sendToPeer(block, peer);
+            }
+             */
+            return chainIdx;
+        }
+
+        std::shared_ptr<Block> disconnectBlock(std::shared_ptr<Block> block, BlockChain chain) {
+            BlockChain useChain = (chain.size() > 0) ? chain : this->activeChain;
+            assert(block == *useChain.rbegin());
+
+            for(const auto& tx: block->txns) {
+                //mempool[tx->id()] = tx;
+
+                for(const auto& txin: tx->txins) {
+                    if(txin->toSpend->txid != "") {
+                        auto txoutTxin = findTxoutForTxin(txin, useChain);
+                        //addToUtxo(*txoutTxin);
+                    }
+                }
+                int len = tx->txouts.size();
+                for(int i=0; i<len; ++i) {
+                    //rmFromUtxo(tx->id(), i);
+                }
+            }
+            std::cout << "block " << block->id() << " disconnected\n";
+            auto last = (*useChain.rbegin());
+            useChain.pop_back();
+            return last;
+        }
+
+
+        std::shared_ptr<TxoutForTxin> findTxoutForTxin(std::shared_ptr<TxIn> txin, BlockChain chain) {
             std::lock_guard<std::mutex> lock(this->chainLock);
             auto txid = txin->toSpend->txid;
-            auto txoutIdx = txin->toSpend->txout_idx;
+            auto txoutIdx = txin->toSpend->txoutIdx;
 
             int height = 0;
             for(const auto& block: chain) {
-                for(const auto tx: block->txns) {
+                for(const auto& tx: block->txns) {
                     if(tx->id() == txid) {
                         auto txout = tx->txouts[txoutIdx];
                         return std::make_shared<TxoutForTxin>(txout, tx, txoutIdx, tx->isCoinbase(), height);
@@ -111,8 +211,80 @@ class TinyChain {
                 ++height;
             }
         }
+
+        bool reorgIfNecessary() {
+            std::lock_guard<std::mutex> lock(this->chainLock);
+            auto reorged = false;
+            //2次元配列コピー
+            const auto frozenSideBranches = this->sideBranches;
+            //# TODO should probably be using `chainwork` for the basis of
+            //# comparison here.
+
+            const int numSideBranches = frozenSideBranches.size();
+            for(int i = 0; i < numSideBranches; ++i) {
+                const auto chain = frozenSideBranches[i];
+                const auto forkBlock = this->locateBlock(chain[0]->prevBlockHash, this->activeChain);
+                const auto activeHeight = this->activeChain.size();
+                const auto branchHeight = chain.size() + forkBlock->height;
+
+                if(branchHeight > activeHeight) {
+                    std::cout << "attempting reorg of idx " << (i+1) << " to active_chain: ";
+                    std::cout << "new height of " << branchHeight << "(vs. " << activeHeight << ")\n";
+                    reorged |= tryReorg(chain, i+1, forkBlock->height);
+                }
+            }
+        }
+
+        bool tryReorg(BlockChain branch, const int branchIdx, const int forkIdx) {
+            // Use the global keyword so that we can actually swap out the reference
+            // in case of a reorg.
+            auto forkBlock = this->activeChain[forkIdx];
+            BlockChain oldActive;
+
+            auto it = activeChain.end() - 1, _BEGIN = activeChain.begin();
+            while(it != _BEGIN && (*it)->id() != forkBlock->id()) {
+                auto res = disconnectBlock(*it, BlockChain());
+                oldActive.push_back(res);
+                --it;
+            }
+            std::reverse(oldActive.begin(), oldActive.end());
+
+            assert(branch[0]->prevBlockHash == (*activeChain.rbegin())->id());
+
+            for(const auto& block: branch) {
+                int connectedIdx = this->connectBlock(block, true);
+                if(connectedIdx != this->activeChainIndex) {
+                    //rollback
+                    std::cout << "reorg of idx " << branchIdx << " to active_chain failed\n";
+                    auto it = activeChain.end() - 1, _BEGIN = activeChain.begin();
+                    while(it != _BEGIN && (*it)->id() != forkBlock->id()) {
+                        auto res = disconnectBlock(*it, BlockChain());
+                        --it;
+                    }
+                    for(const auto& block: oldActive) {
+                        int idx = connectBlock(block, true);
+                        assert(idx == this->activeChainIndex);
+                    }
+                    return false;
+                }
+            }
+
+            this->sideBranches.erase(this->sideBranches.begin() + branchIdx - 1);
+            this->sideBranches.push_back(oldActive);
+
+            std::cout << "chain reorg! New height: " << activeChain.size() << ", tip:" << (*activeChain.end())->id() << "\n";
+            return true;
+        }
+
+        int getMedianTimePast(const int numLastBlocks) {
+            if(this->activeChain.size() == 0) {
+                return 0;
+            } else {
+                int numN = std::min(numLastBlocks, (int)this->activeChain.size());
+                int mid = numN / 2;
+                return this->activeChain[this->activeChain.size() - 1 - mid]->timestamp;
+            }
+        }
 };
-
-
 
 #endif //TINYCHAIN_CPP_TINYCHAIN_H
