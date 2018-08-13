@@ -12,14 +12,15 @@
 class TxOut {
 public:
     int value;
-    std::string toAddr;
+    std::string toAddress;
 
-    TxOut(): value(0), toAddr(""){};
-    TxOut(const int value, const std::string toAddr):value(value), toAddr(toAddr){};
+    TxOut(): value(0), toAddress(""){};
+    TxOut(const int value, const std::string toAddress):value(value), toAddress(toAddress){};
+    TxOut(const TxOut&);
 
     template<class Archive>
     void serialize(Archive & archive) {
-        archive(CEREAL_NVP(value), CEREAL_NVP(toAddr));
+        archive(CEREAL_NVP(value), CEREAL_NVP(toAddress));
     }
 };
 

@@ -14,13 +14,14 @@ public:
     int txout_idx;
 
     OutPoint() : txid(""), txout_idx(0){};
-    OutPoint(const std::string& txid, const int txout_idx): txid(txid), txout_idx(txout_idx) {
-    }
+    OutPoint(const std::string& txid, const int txout_idx): txid(txid), txout_idx(txout_idx) {}
 
     template<class Archive>
     void serialize(Archive & archive) {
         archive(CEREAL_NVP(txid), CEREAL_NVP(txout_idx));
     }
+
+    OutPoint(const OutPoint&);
 };
 
 #endif //TINYCHAIN_CPP_OUTPOINT_H

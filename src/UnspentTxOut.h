@@ -24,6 +24,7 @@ public:
     int height;
 
     UnspentTxOut(): value(0), toAddr(""), txid(""), txout_idx(0), isCoinbase(false), height(0){};
+    UnspentTxOut(const UnspentTxOut&);
 
     template<class Archive>
     void serialize(Archive & archive) {
