@@ -8,6 +8,7 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <sstream>
 
 #include <cereal/cereal.hpp>
 #include <cereal/archives/json.hpp>
@@ -58,21 +59,42 @@ public:
         archive(CEREAL_NVP(version), CEREAL_NVP(prevBlockHash), CEREAL_NVP(markleHash), CEREAL_NVP(timestamp), CEREAL_NVP(bits), CEREAL_NVP(nonce), CEREAL_NVP(txns));
     }
 
-    std::string serialize() {
+    std::string header() {
         std::stringstream ss;
-        {
-            cereal::JSONOutputArchive o_archive(ss);
-            o_archive(*this);
+        ss << "{";
+        ss << "\"version\":" << this->version << ",";
+        ss << "\"prevBlockHash\":\"" << this->prevBlockHash << "\",";
+        ss << "\"markleHash\":\"" << this->markleHash << "\",";
+        ss << "\"timestamp\":" << this->timestamp << ",";
+        ss << "\"bits\":" << this->bits << ",";
+        ss << "\"nonce\":" << this->nonce;
+        ss << "}";
+        return ss.str();
+    }
+
+    std::string toString() {
+        std::stringstream ss;
+        ss << "{";
+        ss << "\"version\":" << this->version << ",";
+        ss << "\"prevBlockHash\":\"" << this->prevBlockHash << "\",";
+        ss << "\"markleHash\":\"" << this->markleHash << "\",";
+        ss << "\"timestamp\":" << this->timestamp << ",";
+        ss << "\"bits\":" << this->bits << ",";
+        ss << "\"nonce\":" << this->nonce << ",";
+
+        ss << "\"txns\":[";
+        int i = 0;
+        for(const auto& tx: this->txns) {
+            ss << (i++ > 0 ? "," : "") << tx->toString();
         }
+        ss << "]";
+
+        ss << "}";
         return ss.str();
     }
 
     std::string id() {
-        return sha256(sha256(this->serialize()));
-    }
-
-    std::string header() {
-        return this->serialize();
+        return sha256(sha256(this->toString()));
     }
 
     std::string header(const int nonce) {

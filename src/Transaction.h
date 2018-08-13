@@ -9,6 +9,7 @@
 #include <string>
 #include <stdexcept>
 #include <memory>
+#include <sstream>
 
 #include <cereal/cereal.hpp>
 #include <cereal/archives/json.hpp>
@@ -46,19 +47,32 @@ public:
         this->txouts.push_back(txout);
     }
 
-    ~Transaction();
+    ~Transaction() {
+        txins.clear();
+        txouts.clear();
+    }
 
     template<class Archive>
     void serialize(Archive & archive) {
         archive(CEREAL_NVP(txins), CEREAL_NVP(txouts), CEREAL_NVP(locktime));
     }
 
-    std::string serialize() {
+    std::string toString() {
         std::stringstream ss;
-        {
-            cereal::JSONOutputArchive o_archive(ss);
-            o_archive(*this);
+        ss << "{";
+        ss << "\"txins\":[";
+        for(const auto& txin: this->txins) {
+            ss << txin->toString();
         }
+        ss << "],";
+
+        ss << "\"txouts\":[";
+        for(const auto& txout: this->txouts) {
+            ss << txout->toString();
+        }
+        ss << "],";
+        ss << "\"locktime\":" << this->locktime;
+        ss << "}";
         return ss.str();
     }
 
@@ -77,14 +91,14 @@ public:
     }
 
     std::string id() {
-        return sha256(sha256(this->serialize()));
+        return sha256(sha256(this->toString()));
     }
 
     void validBasics(const bool asCoinbase) {
         if(txouts.size() == 0 && (!asCoinbase && txins.size() == 0)) {
             throw std::runtime_error("Missing txouts or txins");
         }
-        if(this->serialize().length() > MAX_BLOCK_SERIALIZED_SIZE) {
+        if(this->toString().length() > MAX_BLOCK_SERIALIZED_SIZE) {
             throw std::runtime_error("Too large");
         }
 

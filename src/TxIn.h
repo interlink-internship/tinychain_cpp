@@ -9,6 +9,7 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <sstream>
 
 #include <cereal/types/vector.hpp>
 #include <cereal/types/memory.hpp>
@@ -50,6 +51,21 @@ public:
     template<class Archive>
     void serialize(Archive & archive) {
         archive(CEREAL_NVP(toSpend), CEREAL_NVP(unlockSig), CEREAL_NVP(unlockPk), CEREAL_NVP(sequence));
+    }
+
+    std::string toString() {
+        std::stringstream ss;
+        ss << "{";
+        ss << "\"toSpend\":" << (this->toSpend != nullptr ? this->toSpend->toString() : "{}") << ",";
+        ss << "\"unlockSig\":\"";
+        for(const auto c: this->unlockSig) ss << c;
+        ss << "\",";
+        ss << "\"unlockPk\":\"";
+        for(const auto c: this->unlockPk) ss << c;
+        ss << "\",";
+        ss << "\"sequence\":" << sequence;
+        ss << "}";
+        return ss.str();
     }
 };
 
