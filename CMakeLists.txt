@@ -16,4 +16,3 @@ include("${PROJECT_SOURCE_DIR}/lib/evpp/build/test/cmake_install.cmake")
 include("${PROJECT_SOURCE_DIR}/lib/evpp/build/examples/cmake_install.cmake")
 include("${PROJECT_SOURCE_DIR}/lib/evpp/build/benchmark/cmake_install.cmake")
 
-include_directories("${PROJECT_SOURCE_DIR}/lib/cereal/include")
