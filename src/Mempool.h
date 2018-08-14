@@ -11,9 +11,6 @@ using namespace str;
 class Mempool{
  public:
   map<string, shared_ptr<Transaction> mempool;
-<<<<<<< HEAD
-  void add_txn_to_mempool(shared_ptr<Transaction> transaction);
-=======
   vector<shared_ptr<Transaction>> orphan_transactions;
 
   Mempool(){
@@ -72,5 +69,4 @@ class Mempool{
 
     }
   }
->>>>>>> develop
 };
