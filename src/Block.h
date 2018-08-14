@@ -5,6 +5,7 @@
 #ifndef TINYCHAIN_CPP_BLOCK_H
 #define TINYCHAIN_CPP_BLOCK_H
 
+#include <iostream>
 #include <vector>
 #include <string>
 #include <memory>
@@ -50,7 +51,97 @@ public:
 
     Block(const Block&);
 
+    // exception using validation
+    class BlockValidationException : public std::runtime_error {
+    public:
+        std::shared_ptr<Block> toOrphan;
+        BlockValidationException(const char *_Message)
+                : toOrphan(nullptr), runtime_error(_Message) {};
+
+        BlockValidationException(const char *_Message, std::shared_ptr<Block> block)
+                : toOrphan(block), runtime_error(_Message) {};
+    };
+
+    int validateBlock(const std::time_t medianTimestamp, const bool hasActiveChain, const int activeChainIdx) {
+        if(this->txns.size() == 0) {
+            throw new BlockValidationException("txns empty");
+        }
+        if((this->timestamp - time(NULL)) > MAX_FUTURE_BLOCK_TIME) {
+            throw new BlockValidationException("Block timestamp too far in future");
+        }
+
+        //check id(hex) is bigger than 2^(256-this->bits)
+        std::bitset<256> idBits = hexTo256Bits(this->id());
+        bool isBigger = false;
+        for(int i=256-this->bits; i<256; ++i) {
+            if(idBits[i]) {
+                isBigger = true;
+                break;
+            }
+        }
+        if(!isBigger && idBits[256 - this->bits]) {
+            for(int i=0; i<256-this->bits; ++i) {
+                if(idBits[i]) {
+                    isBigger = true;
+                    break;
+                }
+            }
+        }
+        if(isBigger) {
+            throw new BlockValidationException("Block header doesn't satisfy bits");
+        }
+
+        const int numTxns = this->txns.size();
+        //first transaction must be coinbase, others must not be coinbase
+        if(numTxns == 0) {
+            throw new BlockValidationException("First txn must be coinbase and no more");
+        } else{
+            if(!this->txns[0]->isCoinbase()) {
+                throw new BlockValidationException("First txn must be coinbase and no more");
+            }
+            for(int i=1; i<numTxns; ++i) {
+                if(this->txns[i]->isCoinbase()) {
+                    throw new BlockValidationException("First txn must be coinbase and no more");
+                }
+                const auto tx = this->txns[i];
+                try {
+                    //tx->validateTxn(this->txns, false);
+                } catch (std::runtime_error error) {
+                    const std::string message = "Transaction(" + tx->id() + ") failed to validate";
+                    std::cout << message << "\n";
+                    throw new BlockValidationException(message.c_str());
+                }
+            }
+        }
+
+        std::string txnId;
+        try {
+            for(int i=0; i<numTxns; ++i) {
+                txnId = this->txns[i]->id();
+                this->txns[i]->validBasics(i == 0);
+            }
+        } catch (std::runtime_error error) {
+            std::cout << "Transaction(" << txnId << ") in Block(" << this->header() << ") failed to validate\n";
+            throw new BlockValidationException(("Invalid txn" + txnId).c_str());
+        }
+
+        if(this->getMarkleHash() != this->markleHash) {
+            throw new BlockValidationException("Merkle hash invalid");
+        }
+
+
+        if(this->timestamp <= medianTimestamp) {
+            throw new BlockValidationException("timestamp too old");
+        }
+
+        return 0;
+    }
+
     std::string header() {
+        return this->header(this->nonce);
+    }
+
+    std::string header(int nonce) {
         std::stringstream ss;
         ss << "{";
         ss << "\"version\":" << this->version << ",";
@@ -85,7 +176,12 @@ public:
     }
 
     std::string id() {
-        return sha256(sha256(this->toString()));
+        return sha256(sha256(this->header()));
+    }
+
+
+    std::string getMarkleHash() {
+        return getMarkleHash(0, this->txns.size() - 1);
     }
 
     std::string header(const int nonce) {

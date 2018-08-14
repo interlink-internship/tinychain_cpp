@@ -1,9 +1,12 @@
+#include <iostream>
+
 #include <evpp/udp/udp_server.h>
 #include <evpp/udp/udp_message.h>
-#include <iostream>
+
 #include <string>
 
 #include "Transaction.h"
+<<<<<<< HEAD
 
 #include <cereal/cereal.hpp>
 #include <cereal/archives/json.hpp>
