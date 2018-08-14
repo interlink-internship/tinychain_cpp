@@ -11,9 +11,6 @@
 #include <memory>
 #include <sstream>
 
-#include <cereal/types/vector.hpp>
-#include <cereal/types/memory.hpp>
-
 #include "OutPoint.h"
 
 class TxIn {
@@ -47,11 +44,6 @@ public:
     }
 
     TxIn(const TxIn&);
-
-    template<class Archive>
-    void serialize(Archive & archive) {
-        archive(CEREAL_NVP(toSpend), CEREAL_NVP(unlockSig), CEREAL_NVP(unlockPk), CEREAL_NVP(sequence));
-    }
 
     std::string toString() {
         std::stringstream ss;

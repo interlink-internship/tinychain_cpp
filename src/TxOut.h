@@ -8,7 +8,6 @@
 
 #include <string>
 #include <sstream>
-#include <cereal/types/vector.hpp>
 
 class TxOut {
 public:
@@ -18,11 +17,6 @@ public:
     TxOut(): value(0), toAddress(""){};
     TxOut(const int value, const std::string toAddress):value(value), toAddress(toAddress){};
     TxOut(const TxOut&);
-
-    template<class Archive>
-    void serialize(Archive & archive) {
-        archive(CEREAL_NVP(value), CEREAL_NVP(toAddress));
-    }
 
     std::string toString() {
         std::stringstream ss;

@@ -11,11 +11,6 @@
 #include <memory>
 #include <sstream>
 
-#include <cereal/cereal.hpp>
-#include <cereal/archives/json.hpp>
-#include <cereal/types/vector.hpp>
-#include <cereal/types/memory.hpp>
-
 #include "TxIn.h"
 #include "TxOut.h"
 #include "Params.h"
@@ -50,11 +45,6 @@ public:
     ~Transaction() {
         txins.clear();
         txouts.clear();
-    }
-
-    template<class Archive>
-    void serialize(Archive & archive) {
-        archive(CEREAL_NVP(txins), CEREAL_NVP(txouts), CEREAL_NVP(locktime));
     }
 
     std::string toString() {

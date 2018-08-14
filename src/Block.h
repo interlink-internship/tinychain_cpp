@@ -10,13 +10,9 @@
 #include <memory>
 #include <sstream>
 
-#include <cereal/cereal.hpp>
-#include <cereal/archives/json.hpp>
-#include <cereal/types/vector.hpp>
-#include <cereal/types/memory.hpp>
-
 #include "Transaction.h"
 #include "sha256.h"
+#include "Params.h"
 
 class Block {
 public:
@@ -53,11 +49,6 @@ public:
         {};
 
     Block(const Block&);
-
-    template<class Archive>
-    void serialize(Archive & archive) {
-        archive(CEREAL_NVP(version), CEREAL_NVP(prevBlockHash), CEREAL_NVP(markleHash), CEREAL_NVP(timestamp), CEREAL_NVP(bits), CEREAL_NVP(nonce), CEREAL_NVP(txns));
-    }
 
     std::string header() {
         std::stringstream ss;

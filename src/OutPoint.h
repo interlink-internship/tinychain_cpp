@@ -7,7 +7,6 @@
 
 #include <string>
 #include <sstream>
-#include <cereal/types/vector.hpp>
 
 class OutPoint {
 public:
@@ -16,11 +15,6 @@ public:
 
     OutPoint() : txid(""), txoutIdx(0){};
     OutPoint(const std::string& txid, const int txoutIdx): txid(txid), txoutIdx(txoutIdx) {}
-
-    template<class Archive>
-    void serialize(Archive & archive) {
-        archive(CEREAL_NVP(txid), CEREAL_NVP(txoutIdx));
-    }
 
     OutPoint(const OutPoint&);
 

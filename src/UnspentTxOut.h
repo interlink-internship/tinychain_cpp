@@ -7,7 +7,6 @@
 
 #include <string>
 #include <sstream>
-#include <cereal/types/vector.hpp>
 
 class UnspentTxOut {
 public:
@@ -26,11 +25,6 @@ public:
 
     UnspentTxOut(): value(0), toAddr(""), txid(""), txoutIdx(0), isCoinbase(false), height(0){};
     UnspentTxOut(const UnspentTxOut&);
-
-    template<class Archive>
-    void serialize(Archive & archive) {
-        archive(CEREAL_NVP(value), CEREAL_NVP(toAddr), CEREAL_NVP(txid), CEREAL_NVP(txoutIdx), CEREAL_NVP(isCoinbase), CEREAL_NVP(height));
-    }
 
     std::string toString() {
         std::stringstream ss;

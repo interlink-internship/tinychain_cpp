@@ -1,6 +1,3 @@
 [submodule "lib/evpp"]
 	path = lib/evpp
 	url = https://github.com/Qihoo360/evpp.git
-[submodule "lib/cereal"]
-	path = lib/cereal
-	url = https://github.com/USCiLab/cereal.git
