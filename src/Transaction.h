@@ -100,6 +100,8 @@ public:
             throw std::runtime_error("Spend value too high");
         }
     }
+
+    //TO ADD validateTransaction
 };
 
 
