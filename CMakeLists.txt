@@ -15,7 +15,3 @@ include("${PROJECT_SOURCE_DIR}/lib/evpp/build/labs/cmake_install.cmake")
 include("${PROJECT_SOURCE_DIR}/lib/evpp/build/test/cmake_install.cmake")
 include("${PROJECT_SOURCE_DIR}/lib/evpp/build/examples/cmake_install.cmake")
 include("${PROJECT_SOURCE_DIR}/lib/evpp/build/benchmark/cmake_install.cmake")
-<<<<<<< HEAD
-=======
-
->>>>>>> c844b6a2954fbf1b590fbdeea0cbd88053324983

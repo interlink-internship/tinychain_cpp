@@ -61,6 +61,7 @@ class TinyChain {
         //active chain
         this->activeChain.reserve(RESERVE_BLOCK_SIZE_OF_CHAIN);
         this->activeChain.push_back(this->genesisBlock);
+    }
 
     // return active shain length
     int getCurrentHeight() {
@@ -94,20 +95,21 @@ class TinyChain {
         return std::make_shared<LocatedBlock>(nullptr, 0, 0);
     }
 
+    int connectBlock(std::shared_ptr<Block> block) {
+        return this->connectBlock(block, false);
+    }
 
     int connectBlock(std::shared_ptr<Block> block, const bool doingReorg) {
-
            std::lock_guard<std::mutex> lock(this->chainLock);
            //Accept a block and return the chain index we append it to.
            // Only exit early on already seen in active_chain when reorging.
-           const auto res = doingReorg
-                               ? locateBlock(block->id(), activeChain)
+           const auto findBlock = doingReorg
+                               ? locateBlock(block->id(), this->activeChain)
                                : locateBlock(block->id());
-           if(res->block != nullptr) {
+           if(findBlock->block != nullptr) {
                std::cout << "ignore block already seen: " << block->id() << "\n";
                return -1;
            }
-
 
            int chainIdx = 0;
            try {
@@ -120,9 +122,20 @@ class TinyChain {
                 chainIdx = this->activeChainIndex;
             } else {
                 auto prevBlock = this->locateBlock(block->prevBlockHash);
-
+                if(prevBlock->block == nullptr) {
+                    std::cout << "prev block " << block->prevBlockHash << " not found in any chain\n";
+                    //to_orphen
+                }
+                if(prevBlock->chainIdx != this->activeChainIndex) {
+                    chainIdx = prevBlock->chainIdx;
+                } else {
+                    chainIdx = prevBlock->chainIdx + 1;
+                }
             }
-
+            if(this->getNextWorkRequired(block->prevBlockHash) != block->bits) {
+                std::cout << "bits is incorrect\n";
+                return -1;
+            }
 
            // If `validate_block()` returned a non-existent chain index, we're
            // creating a new side branch.
@@ -167,8 +180,6 @@ class TinyChain {
             */
 
            return chainIdx;
-
-        return 0;
     }
 
 
@@ -288,6 +299,33 @@ class TinyChain {
             int numN = std::min(numLastBlocks, (int)this->activeChain.size());
             int mid = numN / 2;
             return this->activeChain[this->activeChain.size() - 1 - mid]->timestamp;
+        }
+    }
+
+    int getNextWorkRequired(const std::string prevBlockHash) {
+        // Based on the chain, return the number of difficulty bits the next block
+        // must solve.
+        if(prevBlockHash == "") {
+            return INITIAL_DIFFICULTY_BITS;
+        }
+        auto locate = this->locateBlock(prevBlockHash);
+        if((locate->height + 1) % (int)DIFFICULTY_PERIOD_IN_BLOCKS != 0) {
+            return locate->block->bits;
+        }
+
+        std::shared_ptr<Block> periodStartBlock = nullptr;
+        this->chainLock.lock();
+        int idx = std::max(0, locate->height - ((int)DIFFICULTY_PERIOD_IN_BLOCKS - 1));
+        periodStartBlock = this->activeChain[idx];
+        this->chainLock.unlock();
+
+        auto actualTimeTaken = locate->block->timestamp - periodStartBlock->timestamp;
+        if(actualTimeTaken < DIFFICULTY_PERIOD_IN_SECS_TARGET) {
+            return locate->block->bits + 1;
+        } else if(actualTimeTaken > DIFFICULTY_PERIOD_IN_SECS_TARGET) {
+            return locate->block->bits - 1;
+        } else {
+            return locate->block->bits;
         }
     }
 };

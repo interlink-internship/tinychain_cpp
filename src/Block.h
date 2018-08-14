@@ -14,6 +14,7 @@
 #include "Transaction.h"
 #include "sha256.h"
 #include "Params.h"
+#include "Utility.h"
 
 class Block {
 public:
@@ -184,12 +185,17 @@ public:
         return getMarkleHash(0, this->txns.size() - 1);
     }
 
-    std::string header(const int nonce) {
-        const int temp = this->nonce;
-        this->nonce = nonce;
-        std::string header = this->header();
-        this->nonce = temp;
-        return header;
+    std::string getMarkleHash(int left, int right) {
+        std::string leftHash, rightHash;
+        if(right-left <= 1) {
+            leftHash = this->txns[left]->id();
+            rightHash = this->txns[right]->id();
+        } else {
+            int mid = (right + left)/2;
+            leftHash = this->getMarkleHash(left, mid);
+            rightHash = this->getMarkleHash(mid + 1, right);
+        }
+        return sha256(sha256(leftHash + rightHash));
     }
 };
 
