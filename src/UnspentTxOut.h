@@ -17,7 +17,7 @@ public:
     std::string txid;
     int txoutIdx;
 
-    //Did this TxOut from from a coinbase transaction?
+    //Did this TxOut from a coinbase transaction?
     bool isCoinbase;
 
     // The blockchain height this TxOut was included in the chain.
