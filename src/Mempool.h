@@ -71,18 +71,7 @@ class Mempool{
       return UnspentTxOut(txout.value, txout.toAddr, txid,
                           txoutidx, false, -1);
 
-      )
-
-
     }
-
-
-
-
-
-
-
-
 
     }
   }
