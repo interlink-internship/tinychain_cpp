@@ -8,6 +8,8 @@
 #include <string>
 #include <sstream>
 
+#include "OutPoint.h"
+
 class UnspentTxOut {
 public:
     int value;
@@ -24,6 +26,9 @@ public:
     int height;
 
     UnspentTxOut(): value(0), toAddr(""), txid(""), txoutIdx(0), isCoinbase(false), height(0){};
+    UnspentTxOut(const int value, const std::string toAddr, const std::string txid, const int txoutIdx, const bool isCoinbase, const int height)
+        : value(value), toAddr(toAddr), txid(txid), txoutIdx(txoutIdx), isCoinbase(isCoinbase), height(height) {};
+
     UnspentTxOut(const UnspentTxOut&);
 
     std::string toString() {
@@ -37,6 +42,10 @@ public:
         ss << "\"height\":" << this->height;
         ss << "}";
         return ss.str();
+    }
+
+    OutPoint outpoint() {
+        return OutPoint(this->txid, this->txoutIdx);
     }
 };
 
