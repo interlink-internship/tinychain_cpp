@@ -26,6 +26,8 @@ public:
         ss << "}";
         return ss.str();
     }
+
+    bool operator<(const OutPoint &right) const {return this->txid < right.txid}
 };
 
 #endif //TINYCHAIN_CPP_OUTPOINT_H
