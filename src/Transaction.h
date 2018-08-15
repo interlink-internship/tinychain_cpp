@@ -101,7 +101,10 @@ public:
         }
     }
 
-    //TO ADD validateTransaction
+    /*TO ADD validateTransaction
+    transaction valid -> transaction
+    transaction invalid -> transactionValidationError*/
+
 };
 
 

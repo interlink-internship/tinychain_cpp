@@ -3,7 +3,7 @@
 #include <sstream>
 #include <memory>
 #include <iostream>
-#include <
+#include <exception>
 
 #include "Transaction.h"
 
@@ -11,9 +11,6 @@ using namespace str;
 class Mempool{
  public:
   map<string, shared_ptr<Transaction> mempool;
-<<<<<<< HEAD
-  void add_txn_to_mempool(shared_ptr<Transaction> transaction);
-=======
   vector<shared_ptr<Transaction>> orphan_transactions;
 
   Mempool(){
@@ -26,7 +23,7 @@ class Mempool{
     std::stringstream ss;
   }*/
 
-  void add_txn_to_mempool(shared_ptr<Transaction> transaction,
+  void addTxntoMempool(shared_ptr<Transaction> transaction,
                           shared_ptr<vector<string>> peer_hostnames);
   {
     if (mempool.find(transaction.id) == mempool.end()){
@@ -35,7 +32,7 @@ class Mempool{
       /*try {
         transaction = transaction.validateTransaction();
       }
-      catch(const transactionValidationError& e)
+      catch(transactionValidationError& e)
       {
        if(e.to_orphan == nullptr){
        cout << transaction rejected << endl;
@@ -52,25 +49,30 @@ class Mempool{
 
      send_to_peer(transaction, peer_hostnames.at(i))
 
-   }
-
-
-
+   }*/
 
      }
     }
 
+    shared_ptr<UnspentTxOut> findUtxoinMempool(shared_ptr<TxIn>&& txin){
+      string txid = txin.toSpend.txid;
+      int txoutidx = txin.toSpend.txouIdx;
 
+      try{
+        txout = this->mempool[txid]->txouts[idx];
+      }
+      catch(const exception& e)
+      {
+      cout << "Could not find utxo in mempool for" << txid << endl;
+      return None;
+      }
 
+      //isCoinbase = false, height = -1
+      return UnspentTxOut(txout.value, txout.toAddr, txid,
+                          txoutidx, false, -1);
 
-
-
-
-
-
-
+    }
 
     }
   }
->>>>>>> develop
 };
