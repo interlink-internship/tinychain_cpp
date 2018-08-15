@@ -6,7 +6,9 @@
 #define TINYCHAIN_CPP_UNSPENTTXOUT_H
 
 #include <string>
-#include <cereal/types/vector.hpp>
+#include <sstream>
+
+#include "OutPoint.h"
 
 class UnspentTxOut {
 public:
@@ -15,19 +17,35 @@ public:
 
     //The ID of the transaction this output belongs to.
     std::string txid;
-    int txout_idx;
+    int txoutIdx;
 
-    //Did this TxOut from from a coinbase transaction?
+    //Did this TxOut from a coinbase transaction?
     bool isCoinbase;
 
     // The blockchain height this TxOut was included in the chain.
     int height;
 
-    UnspentTxOut(): value(0), toAddr(""), txid(""), txout_idx(0), isCoinbase(false), height(0){};
+    UnspentTxOut(): value(0), toAddr(""), txid(""), txoutIdx(0), isCoinbase(false), height(0){};
+    UnspentTxOut(const int value, const std::string toAddr, const std::string txid, const int txoutIdx, const bool isCoinbase, const int height)
+        : value(value), toAddr(toAddr), txid(txid), txoutIdx(txoutIdx), isCoinbase(isCoinbase), height(height) {};
 
-    template<class Archive>
-    void serialize(Archive & archive) {
-        archive(CEREAL_NVP(value), CEREAL_NVP(toAddr), CEREAL_NVP(txid), CEREAL_NVP(txout_idx), CEREAL_NVP(isCoinbase), CEREAL_NVP(height));
+    UnspentTxOut(const UnspentTxOut&);
+
+    std::string toString() {
+        std::stringstream ss;
+        ss << "{";
+        ss << "\"value\":" << this->value << ",";
+        ss << "\"toAddr\":\"" << this->toAddr << "\",";
+        ss << "\"txid\":\"" << this->txid << "\",";
+        ss << "\"txoutIdx\":" << this->txoutIdx << ",";
+        ss << "\"isCoinbase\"" << (this->isCoinbase ? "true" : "false") << ",";
+        ss << "\"height\":" << this->height;
+        ss << "}";
+        return ss.str();
+    }
+
+    OutPoint outpoint() {
+        return OutPoint(this->txid, this->txoutIdx);
     }
 };
 

@@ -53,4 +53,12 @@ const int INITIAL_DIFFICULTY_BITS = 24;
 // #realname SubsidyHalvingInterval
 const int HALVE_SUBSIDY_AFTER_BLOCKS_NUM = 210000;
 
+//The number of reserve size of i/o in Transaction
+const int RESERVE_IO_SIZE_OF_TRANSACTION = 5;
+
+//The number of reserve size of transactions in BLock
+const int RESERVE_TRANSACTION_SIZE_OF_BLOCK = 5;
+
+const int RESERVE_BLOCK_SIZE_OF_CHAIN = 20;
+
 #endif //TINYCHAIN_CPP_PARAMS_H

@@ -8,7 +8,9 @@
 
 #include <vector>
 #include <string>
-#include <cereal/types/vector.hpp>
+#include <memory>
+#include <sstream>
+
 #include "OutPoint.h"
 
 class TxIn {
@@ -16,28 +18,46 @@ class TxIn {
 public:
     //A reference to the output we're spending. This is None for coinbase
     //transactions.
-    OutPoint toSpend;
+    std::shared_ptr<OutPoint> toSpend;
 
     // The (signature, pubkey) pair which unlocks the TxOut for spending.
-    std::vector<unsigned char> unlockSig;
-    std::vector<unsigned char> unlockPk;
+    std::vector<char> unlockSig;
+    std::vector<char> unlockPk;
 
     // A sender-defined sequence number which allows us replacement of the txn
     // if desired.
     int sequence;
 
-    TxIn() : toSpend(OutPoint()), unlockSig(std::vector<unsigned char>()), unlockPk(std::vector<unsigned char>()), sequence(0){
-    }
-    TxIn(const OutPoint& toSpend, const std::string unlockSig, const std::string unnlockPk, const int sequence)
-            : toSpend(toSpend), sequence(sequence)
+    TxIn()
     {
-        this->unlockSig = std::vector<unsigned char>(unlockSig.begin(), unlockSig.end());
-        this->unlockPk  = std::vector<unsigned char>(unlockPk.begin(), unlockPk.end());
+        this->toSpend = std::make_shared<OutPoint>();
+        this->unlockSig = std::vector<char>();
+        this->unlockPk = std::vector<char>();
+        this->sequence = 0;
     }
 
-    template<class Archive>
-    void serialize(Archive & archive) {
-        archive(CEREAL_NVP(toSpend), CEREAL_NVP(unlockSig), CEREAL_NVP(unlockPk), CEREAL_NVP(sequence));
+    TxIn(std::shared_ptr<OutPoint> toSpend, const std::string unlockSig, const std::string unnlockPk, const int sequence)
+            : toSpend(toSpend), sequence(sequence)
+    {
+        this->unlockSig = std::vector<char>(unlockSig.begin(), unlockSig.end());
+        this->unlockPk = std::vector<char>(unlockPk.begin(), unlockPk.end());
+    }
+
+    TxIn(const TxIn&);
+
+    std::string toString() {
+        std::stringstream ss;
+        ss << "{";
+        ss << "\"toSpend\":" << (this->toSpend != nullptr ? this->toSpend->toString() : "{}") << ",";
+        ss << "\"unlockSig\":\"";
+        for(const auto c: this->unlockSig) ss << c;
+        ss << "\",";
+        ss << "\"unlockPk\":\"";
+        for(const auto c: this->unlockPk) ss << c;
+        ss << "\",";
+        ss << "\"sequence\":" << sequence;
+        ss << "}";
+        return ss.str();
     }
 };
 

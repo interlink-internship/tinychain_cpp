@@ -6,21 +6,28 @@
 #define TINYCHAIN_CPP_OUTPOINT_H
 
 #include <string>
-#include <cereal/types/vector.hpp>
+#include <sstream>
 
 class OutPoint {
 public:
     std::string txid;
-    int txout_idx;
+    int txoutIdx;
 
-    OutPoint() : txid(""), txout_idx(0){};
-    OutPoint(const std::string& txid, const int txout_idx): txid(txid), txout_idx(txout_idx) {
+    OutPoint() : txid(""), txoutIdx(0){};
+    OutPoint(const std::string& txid, const int txoutIdx): txid(txid), txoutIdx(txoutIdx) {}
+
+    OutPoint(const OutPoint&);
+
+    std::string toString() {
+        std::stringstream ss;
+        ss << "{";
+        ss << "\"txid\":\"" << this->txid << "\",";
+        ss << "\"txoutIdx\":" << this->txoutIdx;
+        ss << "}";
+        return ss.str();
     }
 
-    template<class Archive>
-    void serialize(Archive & archive) {
-        archive(CEREAL_NVP(txid), CEREAL_NVP(txout_idx));
-    }
+    bool operator<(const OutPoint &right) const {return this->txid < right.txid}
 };
 
 #endif //TINYCHAIN_CPP_OUTPOINT_H
