@@ -6,7 +6,7 @@
 #define TINYCHAIN_CPP_PARAMS_H
 
 // The infamous max block size.
-const int MAX_BLOCK_SERIALIZED_SIZE = 1000000;
+const long MAX_BLOCK_SERIALIZED_SIZE = 1000000;
 
 // Coinbase transaction outputs can be spent after this many blocks have
 // elapsed since being mined.
@@ -18,12 +18,12 @@ const int COINBASE_MATURITY = 2;
 const int MAX_FUTURE_BLOCK_TIME = (60 * 60 * 2);
 
 // The number of Belushis per coin. #realname COIN
-const int BELUSHIS_PER_COIN = 100e6;
+const long BELUSHIS_PER_COIN = 100e6;
 
-const int TOTAL_COINS = 21000000;
+const long TOTAL_COINS = 21000000;
 
 // The maximum number of Belushis that will ever be found.
-const int MAX_MONEY = BELUSHIS_PER_COIN * TOTAL_COINS;
+const long MAX_MONEY = BELUSHIS_PER_COIN * TOTAL_COINS;
 
 // The duration we want to pass between blocks being found, in seconds.
 // This is lower than Bitcoin's configuation (10 * 60).
@@ -51,7 +51,7 @@ const int INITIAL_DIFFICULTY_BITS = 24;
 // The number of blocks after which the mining subsidy will halve.
 //
 // #realname SubsidyHalvingInterval
-const int HALVE_SUBSIDY_AFTER_BLOCKS_NUM = 210000;
+const long HALVE_SUBSIDY_AFTER_BLOCKS_NUM = 210000;
 
 //The number of reserve size of i/o in Transaction
 const int RESERVE_IO_SIZE_OF_TRANSACTION = 5;
