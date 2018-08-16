@@ -10,12 +10,15 @@
 #include <stdexcept>
 #include <memory>
 #include <sstream>
+#include <exception>
 
 #include "TxIn.h"
 #include "TxOut.h"
 #include "Params.h"
 #include "sha256.h"
-
+#include "UtxoSet.h"
+#include "Mempool.h"
+#include "Utility.h"
 
 class Transaction {
 public:
@@ -84,7 +87,7 @@ public:
         return sha256(sha256(this->toString()));
     }
 
-    void validBasics(const bool asCoinbase) {
+    void validateBasics(const bool asCoinbase) {
         if(txouts.size() == 0 && (!asCoinbase && txins.size() == 0)) {
             throw std::runtime_error("Missing txouts or txins");
         }
@@ -101,10 +104,70 @@ public:
         }
     }
 
-    /*TO ADD validateTransaction
-    transaction valid -> transaction
-    transaction invalid -> transactionValidationError*/
+    // exception using validation
+    class TransactionValidationException : public std::runtime_error {
+        public:
+            bool isOrphen;
+            TransactionValidationException(const char *_Message)
+                    : isOrphen(false), runtime_error(_Message) {};
+            TransactionValidationException(const char *_Message, const bool isOrphen)
+                    : isOrphen(isOrphen), runtime_error(_Message) {};
+    };
 
+    void validate(UtxoSet& utxoSet, Mempool& mempool, const int currentHeight, std::vector<std::shared_ptr<Transaction>>& slidingsInBlock) {
+        return this->validate(utxo, mempool, currentHeight, slidingsInBlock, false, true);
+    }
+
+    void validate(UtxoSet& utxoSet, Mempool& mempool, const int currentHeight, std::vector<std::shared_ptr<Transaction>>& slidingsInBlock, const bool allowUtxoFromMempool) {
+        return this->validate(utxo, mempool, currentHeight, slidingsInBlock, false, allowUtxoFromMempool);
+    }
+
+    void validate(UtxoSet& utxoSet, Mempool& mempool, const int currentHeight, std::vector<std::shared_ptr<Transaction>>& slidingsInBlock, const bool asCoinbase, const bool allowUtxoFromMempool) {
+        /*
+            Validate a single transaction. Used in various contexts, so the
+            parameters facilitate different uses.
+        */
+        this->validateBasics(asCoinbase);
+
+        long availableToSpend = 0;
+        long i = 0;
+        for(const auto& txin: this->txins) {
+            auto utxo = utxoSet.get(txin->toSpend->txid, txin->toSpend->txoutIdx);
+            if(utxo == nullptr && slidingsInBlock.size() > 0) {
+                utxo = findUtxoInList(txin, slidingsInBlock);
+            }
+            if(utxo == nullptr && allowUtxoFromMempool) {
+                utxo = mempool.findUtxo(txin);
+            }
+
+            if(utxo == nullptr) {
+                const auto message = "Could find no UTXO for TxIn[" + std::to_string(i) + "] -- orphaning txn";
+                throw new TransactionValidationException(message.c_str(), true);
+            }
+
+            if(utxo->isCoinbase && (currentHeight - utxo->height) < COINBASE_MATURITY) {
+                throw new TransactionValidationException("Coinbase UTXO not ready for spend");
+            }
+
+            try {
+                validateSignatureForSpend(txin, utxo, this->txouts);
+            } catch(TxUnlockException e) {
+                const auto message = txin->toString() + " is not a valid spend of " + utxo->toString();
+                throw new TransactionValidationException(message.c_str());
+            }
+
+            availableToSpend += utxo->value;
+            ++i;
+        }
+
+        long sum = 0;
+        for(const auto& txout: this->txouts) {
+            sum += txout->value;
+        }
+        if(availableToSpend < sum) {
+            throw new TransactionValidationException("Spend value is more than available");
+        }
+    }
 };
 
 
