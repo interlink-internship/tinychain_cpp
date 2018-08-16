@@ -10,6 +10,7 @@
 using namespace str;
 class Mempool{
  public:
+  //mempool[txid]
   map<string, shared_ptr<Transaction> mempool;
   vector<shared_ptr<Transaction>> orphan_transactions;
 
@@ -18,10 +19,32 @@ class Mempool{
     vector<string, shared_ptr<Transaction>> orphan_transactions;
   };
 
-  /*
+
   string toString() {
     std::stringstream ss;
-  }*/
+    map<string, int>::iterator it;
+
+    ss << "["
+
+    //auto it でもいいかも
+    for ( it = mempool.begin(); it != mempool.end(); it++ )
+    {
+        ss  << "{"
+            << "\"txid\":["
+            << it->first  // string (key)
+            << "],"
+            << "\"Transaction\":["
+            << it->second->toString() // string's value
+            << "]"
+            << "}"
+            << (it != mempool.end()) ? "," : "";
+    }
+
+    ss << "]";
+
+    return ss.str();
+}
+
 
   void addTxntoMempool(shared_ptr<Transaction> transaction,
                           shared_ptr<vector<string>> peer_hostnames);
@@ -45,9 +68,9 @@ class Mempool{
 
      /*TO ADD
 
-     for (i=0; i << sizeof(peer_hostnames); i++){
+     for (i=0; i << peer_hostnames.size(); i++){
 
-     send_to_peer(transaction, peer_hostnames.at(i))
+     send_to_peer(transaction, peer_hostnames.at(i));
 
    }*/
 
