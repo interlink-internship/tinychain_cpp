@@ -12,13 +12,14 @@
 #include <sstream>
 #include <exception>
 
+#include "Params.h"
+#include "OutPoint.h"
 #include "TxIn.h"
 #include "TxOut.h"
-#include "Params.h"
-#include "sha256.h"
-#include "UtxoSet.h"
-#include "Mempool.h"
-#include "Utility.h"
+
+//#include "UtxoSet.h"
+//#include "Utility.h"
+//#include "Mempool.h"
 
 class Transaction {
 public:
@@ -83,9 +84,15 @@ public:
         return this->txins.size() == 1 && this->txins[0]->toSpend->txid.empty();
     }
 
+    //it is fake
     std::string id() {
-        return sha256(sha256(this->toString()));
+        return "";
     }
+    /*
+    std::string id() {
+        return sha256DoubleHash(this->id())
+    }
+    */
 
     void validateBasics(const bool asCoinbase) {
         if(txouts.size() == 0 && (!asCoinbase && txins.size() == 0)) {
@@ -95,7 +102,7 @@ public:
             throw std::runtime_error("Too large");
         }
 
-        int sum = 0;
+        long sum = 0;
         for(const auto& txout: this->txouts) {
             sum += txout->value;
         }
@@ -103,7 +110,7 @@ public:
             throw std::runtime_error("Spend value too high");
         }
     }
-
+/*
     // exception using validation
     class TransactionValidationException : public std::runtime_error {
         public:
@@ -114,19 +121,21 @@ public:
                     : isOrphen(isOrphen), runtime_error(_Message) {};
     };
 
+    void validate(UtxOSet& utxoSet, Mempool& mempool, const int currentHeight) {
+        return this->validate(utxoSet, mempool, currentHeight, std::vector<std::shared_ptr<Transaction>>(), false, true);
+    }
+
     void validate(UtxoSet& utxoSet, Mempool& mempool, const int currentHeight, std::vector<std::shared_ptr<Transaction>>& slidingsInBlock) {
-        return this->validate(utxo, mempool, currentHeight, slidingsInBlock, false, true);
+        return this->validate(utxoSet, mempool, currentHeight, slidingsInBlock, false, true);
     }
 
     void validate(UtxoSet& utxoSet, Mempool& mempool, const int currentHeight, std::vector<std::shared_ptr<Transaction>>& slidingsInBlock, const bool allowUtxoFromMempool) {
-        return this->validate(utxo, mempool, currentHeight, slidingsInBlock, false, allowUtxoFromMempool);
+        return this->validate(utxoSet, mempool, currentHeight, slidingsInBlock, false, allowUtxoFromMempool);
     }
 
     void validate(UtxoSet& utxoSet, Mempool& mempool, const int currentHeight, std::vector<std::shared_ptr<Transaction>>& slidingsInBlock, const bool asCoinbase, const bool allowUtxoFromMempool) {
-        /*
-            Validate a single transaction. Used in various contexts, so the
-            parameters facilitate different uses.
-        */
+        // Validate a single transaction. Used in various contexts, so the
+        // parameters facilitate different uses.
         this->validateBasics(asCoinbase);
 
         long availableToSpend = 0;
@@ -168,7 +177,7 @@ public:
             throw new TransactionValidationException("Spend value is more than available");
         }
     }
+    */
 };
-
 
 #endif //TINYCHAIN_CPP_TRANSACTION_H
