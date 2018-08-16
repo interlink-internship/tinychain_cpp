@@ -35,20 +35,9 @@ class UtxoSet {
             utxoSet.erase(OutPoint(txid, txoutIdx));
         }
 
-        std::shared_ptr<UnspentTxOut> findUtxoInList(std::shared_ptr<TxIn> txin, std::vector<std::shared_ptr<Transaction>>& txns) {
-            auto txid = txin->toSpend->txid;
-            auto txoutIdx = txin->toSpend->txoutIdx;
-
-            std::shared_ptr<TxOut> txout = nullptr;
-            for(const auto& tx: txns) {
-                if(tx->id() == txid) {
-                    txout = tx->txouts[txoutIdx];
-                    break;
-                }
-            }
-            return (txout != nullptr
-                        ? std::make_shared<UnspentTxOut>(txout->value, txout->toAddress, txid, txoutIdx, false, -1)
-                        : nullptr);
+        std::shared_ptr<UnspentTxOut> get(const std::string txid, const int txoutIdx) {
+            const auto outPoint = OutPoint(txid, txoutIdx);
+            return (this->utxoSet.count(outPoint) > 0 ? this->utxoSet[outPoint] : nullptr)
         }
 };
 
