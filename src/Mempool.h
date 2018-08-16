@@ -1,101 +1,66 @@
-#include <map>
-#include <vector>
-#include <sstream>
-#include <memory>
+//
+// Created by kourin on 2018/08/16.
+//
+
+#ifndef TINYCHAIN_CPP_MEMPOOL_H
+#define TINYCHAIN_CPP_MEMPOOL_H
+
 #include <iostream>
-#include <exception>
-
+#include <map>
+#include <memory>
 #include "Transaction.h"
+#include "UnspentTxOut.h"
 
-using namespace str;
-class Mempool{
- public:
-  //mempool[txid]
-  map<string, shared_ptr<Transaction> mempool;
-  vector<shared_ptr<Transaction>> orphan_transactions;
+class Mempool {
+    public:
+        std::map<std::string, std::shared_ptr<Transaction>> mempool;
+        Mempool() {
+        }
 
-  Mempool(){
-    map<string, shared_ptr<Transaction> mempool;
-    vector<string, shared_ptr<Transaction>> orphan_transactions;
-  };
+        void addTxnToMempool(std::shared_ptr<Transaction> txn) {
+            if(this->mempool.count(txn->id()) > 0) {
+                std::cout << "txn " << txn->id() << " already seen\n";
+                return;
+            }
 
+            /*
+            try {
+                txn->validate(this->utxoSet, this->mempool, this->activeChain.size());
+                std::cout << "txn " << txn->id() << " added to mempool\n";
+                mempool.insert(std::make_pair(txn->id(), txn));
 
-  string toString() {
-    std::stringstream ss;
-    map<string, int>::iterator it;
+                this->bloadCast();
+            } catch(const Transaction::TransactionValidationException& e) {
+                if(e.isOrphen) {
+                    std::cout << "txn " << txn.id() << " submitted as orphan\n";
+                    this->orphanTxns.push_back(txn);
+                } else {
+                    std::cout << "txn rejected\n";
+                }
+            }
+             */
+        }
 
-    ss << "["
+        std::shared_ptr<UnspentTxOut> findUtxoInMempool(TxIn& txin) {
+            auto txid = txin.toSpend->txid;
+            auto idx = txin.toSpend->txoutIdx;
 
-    //auto it でもいいかも
-    for ( it = mempool.begin(); it != mempool.end(); it++ )
-    {
-        ss  << "{"
-            << "\"txid\":["
-            << it->first  // string (key)
-            << "],"
-            << "\"Transaction\":["
-            << it->second->toString() // string's value
-            << "]"
-            << "}"
-            << (it != mempool.end()) ? "," : "";
-    }
+            if(this->mempool.count(txid) == 0) {
+                std::cout << "Couldn't find utxo in mempool for " << txin.toString() << "\n";
+                return nullptr;
+            }
+            auto txout = this->mempool[txid]->txouts[idx];
+            return std::make_shared<UnspentTxOut>(txout->value, txout->toAddress, txid, idx, false, -1);
+        }
 
-    ss << "]";
+        void deleteUtxoById(const std::string id) {
+            this->mempool.erase(id);
+        }
 
-    return ss.str();
-}
-
-
-  void addTxntoMempool(shared_ptr<Transaction> transaction,
-                          shared_ptr<vector<string>> peer_hostnames);
-  {
-    if (mempool.find(transaction.id) == mempool.end()){
-
-    }else{
-      /*try {
-        transaction = transaction.validateTransaction();
-      }
-      catch(transactionValidationError& e)
-      {
-       if(e.to_orphan == nullptr){
-       cout << transaction rejected << endl;
-     }else{
-     cout << transaction << e.to_orphan.id << submitted as orphan << endl;
-     orphan_transactions.push_back(transaction);
-     }*/
-
-     cout << transaction << transaction.id << added to mempool << endl;
-
-     /*TO ADD
-
-     for (i=0; i << peer_hostnames.size(); i++){
-
-     send_to_peer(transaction, peer_hostnames.at(i));
-
-   }*/
-
-     }
-    }
-
-    shared_ptr<UnspentTxOut> findUtxoinMempool(shared_ptr<TxIn>&& txin){
-      string txid = txin.toSpend.txid;
-      int txoutidx = txin.toSpend.txouIdx;
-
-      try{
-        txout = this->mempool[txid]->txouts[idx];
-      }
-      catch(const exception& e)
-      {
-      cout << "Could not find utxo in mempool for" << txid << endl;
-      return None;
-      }
-
-      //isCoinbase = false, height = -1
-      return UnspentTxOut(txout.value, txout.toAddr, txid,
-                          txoutidx, false, -1);
-
-    }
-
-    }
-  }
+        bool isExist(std::string txid) {
+            return this->mempool.count(txid) > 0;
+        }
 };
+
+
+#endif //TINYCHAIN_CPP_MEMPOOL_H
