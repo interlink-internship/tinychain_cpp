@@ -5,6 +5,7 @@
 #ifndef TINYCHAIN_CPP_UTXOSET_H
 #define TINYCHAIN_CPP_UTXOSET_H
 
+#include <iostream>
 #include <map>
 #include <memory>
 #include <utility>
@@ -37,7 +38,9 @@ class UtxoSet {
 
         std::shared_ptr<UnspentTxOut> get(const std::string txid, const int txoutIdx) {
             const auto outPoint = OutPoint(txid, txoutIdx);
-            return (this->utxoSet.count(outPoint) > 0 ? this->utxoSet[outPoint] : nullptr)
+            return (this->utxoSet.count(outPoint) > 0)
+                        ? std::shared_ptr<UnspentTxOut>(&this->utxoSet[outPoint])
+                        : nullptr;
         }
 };
 
