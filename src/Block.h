@@ -12,10 +12,11 @@
 #include <sstream>
 #include <openssl/ripemd.h>
 #include <openssl/sha.h>
+#include <boost/multiprecision/cpp_int.hpp>
+#include <boost/multiprecision/integer.hpp>
 
-#include "Transaction.h"
-#include "sha256.h"
 #include "Params.h"
+#include "Transaction.h"
 #include "Utility.h"
 
 class Block {
@@ -30,7 +31,7 @@ public:
     std::string markleHash;
 
     // A UNIX timestamp of when this block was created.
-    int timestamp;
+    std::time_t timestamp;
 
     // The difficulty target; i.e. the hash of this block header must be under
     // (2 ** 256 >> bits) to consider work proved.
@@ -48,9 +49,8 @@ public:
         txns.reserve(RESERVE_TRANSACTION_SIZE_OF_BLOCK);
     };
 
-    Block(const int version, const std::string prevBlockHash, const std::string markleHash, const int timestamp, const int bits, const int nonce, std::vector<std::shared_ptr<Transaction>>& txns)
-        : txns(txns.begin(), txns.end()), version(version), prevBlockHash(prevBlockHash), markleHash(markleHash), timestamp(timestamp), bits(bits), nonce(nonce)
-        {};
+    Block(const int version, const std::string prevBlockHash, const std::string markleHash, const std::time_t timestamp, const int bits, const int nonce, std::vector<std::shared_ptr<Transaction>>& txns)
+        : txns(txns.begin(), txns.end()), version(version), prevBlockHash(prevBlockHash), markleHash(markleHash), timestamp(timestamp), bits(bits), nonce(nonce) {;};
 
     Block(const Block&);
 
@@ -73,6 +73,20 @@ public:
             throw new BlockValidationException("Block timestamp too far in future");
         }
 
+        std::vector<unsigned char> idBytes;
+        hexStringToBytes(this->id(), idBytes);
+        boost::multiprecision::uint256_t idValue = 0;
+        for(const auto byte: idBytes) {
+            idValue *= 256;
+            idValue += byte;
+        }
+        auto right = boost::multiprecision::uint256_t("1");
+        right <<= (256 - this->bits);
+        if(idValue > right) {
+            throw new BlockValidationException("Block header doesn't satisfy bits");
+        }
+
+        /*
         //check id(hex) is bigger than 2^(256-this->bits)
         std::bitset<256> idBits = hexTo256Bits(this->id());
         bool isBigger = false;
@@ -93,6 +107,7 @@ public:
         if(isBigger) {
             throw new BlockValidationException("Block header doesn't satisfy bits");
         }
+        */
 
         const int numTxns = this->txns.size();
         //first transaction must be coinbase, others must not be coinbase
@@ -107,9 +122,10 @@ public:
                     throw new BlockValidationException("First txn must be coinbase and no more");
                 }
                 try {
-                    this->txns[i]->validate(this->txns, false);
+//                    this->txns[i]->validate(this->txns, false);
                 } catch (std::runtime_error error) {
-                    const std::string message = "Transaction(" + tx->id() + ") failed to validate";
+
+                    const std::string message = "Transaction(" + this->txns[i]->id() + ") failed to validate";
                     std::cout << message << "\n";
                     throw new BlockValidationException(message.c_str());
                 }
@@ -178,9 +194,12 @@ public:
     }
 
     std::string id() {
-        return sha256(sha256(this->header()));
+        return sha256DoubleHash(this->header());
     }
 
+    void setMarkleHash() {
+        this->markleHash = this->getMarkleHash();
+    }
 
     std::string getMarkleHash() {
         return getMarkleHash(0, this->txns.size() - 1);
@@ -196,7 +215,7 @@ public:
             leftHash = this->getMarkleHash(left, mid);
             rightHash = this->getMarkleHash(mid + 1, right);
         }
-        return sha256(sha256(leftHash + rightHash));
+        return sha256DoubleHash(leftHash + rightHash);
     }
 };
 
