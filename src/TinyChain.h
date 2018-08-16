@@ -5,12 +5,17 @@
 #ifndef TINYCHAIN_CPP_TINYCHAIN_H
 #define TINYCHAIN_CPP_TINYCHAIN_H
 
-
 #include <vector>
 #include <mutex>
 #include <utility>
 #include <cassert>
 #include <algorithm>
+#include <set>
+#include <ctime>
+#include <boost/multiprecision/cpp_int.hpp>
+#include <boost/multiprecision/integer.hpp>
+#include <thread>
+#include <future>
 
 #include "Block.h"
 #include "Transaction.h"
@@ -19,6 +24,8 @@
 #include "LocatedBlock.h"
 #include "TxoutForTxin.h"
 #include "Utility.h"
+#include "UtxoSet.h"
+#include "Mempool.h"
 
 class TinyChain {
     public:
@@ -41,6 +48,13 @@ class TinyChain {
     std::mutex chainLock;
 
     int activeChainIndex;
+
+    UtxoSet utxoSet;
+    std::vector<std::shared_ptr<Transaction>> orphanTxns;
+    Mempool mempool;
+
+    bool mineInterrupt;
+    std::mutex mineInterrputMutex;
 
     TinyChain() {
         //genesis block
@@ -113,7 +127,7 @@ class TinyChain {
 
            int chainIdx = 0;
            try {
-                block->validateBlock(this->getMedianTimePast(11), this->activeChain.size() > 0, this->activeChainIndex);
+                block->validate(this->getMedianTimePast(11), this->activeChain.size() > 0, this->activeChainIndex);
            } catch(const Block::BlockValidationException& e) {
                std::cout << "block " << block->id() << " failed validation\n";
                return 0;
@@ -153,15 +167,15 @@ class TinyChain {
            // If we added to the active chain, perform upkeep on utxo_set and mempool.
            if(chainIdx == this->activeChainIndex) {
                for(const auto& tx: block->txns) {
-                   //mempool.pop(tx->id(), nullptr);
+                   mempool.deleteUtxoById(tx->id());
 
                    if(!tx->isCoinbase()) {
                        for(const auto& txin: tx->txins) {
-                           //rmFromUtxo(txin->toSpend);
+                           utxoSet.rmFromUtxo(txin->toSpend->txid, txin->toSpend->txoutIdx);
                        }
                        int i = 0;
                        for(const auto& txout: tx->txouts) {
-                           //addToUxto(txout, tx, i, tx->isCoinbase(), chain.size());
+                           utxoSet.addToUtxo(txout, tx, i, tx->isCoinbase(), (int)chain.size());
                            ++i;
                        }
                    }
@@ -169,7 +183,9 @@ class TinyChain {
            }
 
            if( (!doingReorg && this->reorgIfNecessary()) || chainIdx == this->activeChainIndex) {
-               //mine_interrupt.set();
+               this->mineInterrputMutex.lock();
+               this->mineInterrupt = true;
+               this->mineInterrputMutex.unlock();
                std::cout << "block accepted height=" << (this->activeChain.size()-1) << " txns=" << block->txns.size() << "\n";
            }
 
@@ -302,6 +318,9 @@ class TinyChain {
         }
     }
 
+    /*
+     * Proof of Work
+     */
     int getNextWorkRequired(const std::string prevBlockHash) {
         // Based on the chain, return the number of difficulty bits the next block
         // must solve.
@@ -326,6 +345,173 @@ class TinyChain {
             return locate->block->bits - 1;
         } else {
             return locate->block->bits;
+        }
+    }
+
+    std::shared_ptr<Block> assembleAndSolveBlock(const std::string payCoinbaseToAddr, std::vector<std::shared_ptr<Transaction>> txns) {
+        /*
+            Construct a Block by pulling transactions from the mempool, then mine it.
+        */
+        this->chainLock.lock();
+        auto prevBlockHash = (this->activeChain.size() > 0)
+                                ? (this->activeChain[this->activeChain.size() - 1]->id())
+                                : ("");
+        this->chainLock.unlock();
+
+        auto block = std::make_shared<Block>(0, prevBlockHash, "", time(NULL), this->getNextWorkRequired(prevBlockHash), 0, txns);
+        if(block->txns.size() == 0) {
+            this->selectFromMempool(*block);
+        }
+
+        auto fees = this->culculateFees(block);
+        //auto myAddress = this->initWallet()[2];
+        //auto coinbaseTxn = Transaction::createCoinbase(myAddress, this->getBlockSubsidy() + fees, this->activeChain.size());
+        //block->txns.insert(block->txns.begin(), coinbaseTxn);
+
+        block->setMarkleHash();
+
+        /*
+        if(block->serialize().size() > MAX_BLOCK_SERIALIZED_SIZE) {
+            throw new std::runtime_error("txns specified create a block too large");
+        }
+         */
+        bool isMineSuccess = this->mine(block);
+        return (isMineSuccess ? block : nullptr);
+    }
+
+    long culculateFees(std::shared_ptr<Block> block) {
+        /*
+        Given the txns in a Block, subtract the amount of coin output from the
+        inputs. This is kept as a reward by the miner.
+        */
+        long fee = 0;
+        for(const auto& txn: block->txns) {
+            long spent = 0;
+            for(const auto& txin: txn->txins) {
+                auto utxo = this->utxoSet.get(txin->toSpend->txid, txin->toSpend->txoutIdx);
+                if(utxo != nullptr) {
+                    spent += utxo->value;
+                    break;
+                } else{
+                    for(const auto& t: block->txns) {
+                        if(t->id() == txin->toSpend->txid) {
+                            spent += t->txouts[txin->toSpend->txoutIdx]->value;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            long sent = 0;
+            for(const auto& txout: txn->txouts) {
+                sent += txout->value;
+            }
+            fee += (spent - sent);
+        }
+        return fee;
+    }
+
+    long getBlockSubsidy() {
+        long havings = this->activeChain.size() / HALVE_SUBSIDY_AFTER_BLOCKS_NUM;
+        return (havings >= 64)
+                    ? 0
+                    : (50 * BELUSHIS_PER_COIN / (2 << havings));
+    }
+
+    bool mine(std::shared_ptr<Block> block) {
+        auto start = time(NULL);
+        int nonce = 0;
+        auto target = boost::multiprecision::uint256_t("1");
+        target <<= (256 - block->bits);
+
+        this->mineInterrputMutex.lock();
+        this->mineInterrupt = false;
+        this->mineInterrputMutex.unlock();
+
+        /*
+        std::future<bool> isSuccess
+            = std::async(std::launch::async, calcNonce, std::ref(*block), std::ref(nonce), target, std::ref(this->mineInterrputMutex), std::ref(this->mineInterrupt));
+        if(isSuccess.get()) {
+            block->nonce = nonce;
+            auto duration = time(NULL) - start;
+            auto khs = (block->nonce / duration) / 1000;
+            std::cout << "[mining] block found! " << duration << " s - " << khs << " KH/s - " << block->id() << "\n";
+            return true;
+        } else {
+            return false;
+        }
+         */
+        //
+        return false;
+        //
+    }
+
+    bool mineForever() {
+        while(true) {
+            /*
+            auto myAddress = initWallet()[2];
+            auto block = this->assembleAndSolveBlock(myAddress);
+            if(block != nullptr) {
+                this->connectBlock(block);
+                this->saveToDisk();
+            }
+             */
+        }
+    }
+
+    bool tryAddToBlock(Block& block, const std::string txid, std::set<std::string>& addedToBlock) {
+        if(addedToBlock.count(txid) > 0) {
+            return true;
+        }
+        if(this->mempool.isExist(txid) == 0) {
+            std::cout << "!Couldn't find utxo in mempool for " << txid << " in tryAddToBlock\n";
+            return false;
+        }
+        auto tx = this->mempool.mempool[txid];
+
+        // For any txin that can't be found in the main chain, find its
+        // transaction in the mempool (if it exists) and add it to the block.
+        for(const auto& txin: tx->txins) {
+            if(this->utxoSet.get(txin->toSpend->txid, txin->toSpend->txoutIdx) != nullptr) {
+                continue;
+            }
+
+            auto inMempool = this->mempool.findUtxoInMempool(*txin);
+            if(inMempool == nullptr) {
+                std::cout << "Couldn't find UTXO for " << txin->toString() << "\n";
+                return false;
+            }
+            auto isSuccess = this->tryAddToBlock(block, inMempool->txid, addedToBlock);
+            if(!isSuccess) {
+                std::cout << "Couldn't add parent\n";
+                return false;
+            }
+        }
+
+        Block newBlock = block;
+        newBlock.txns.push_back(tx);
+        /*
+        if(newBlock.serialize() < MAX_BLOCK_SERIALIZED_SIZE) {
+            std::cout << "added tx " << tx->id() << " to block";
+            addedToBlock.insert(txid);
+            block = newBlock;
+        }
+         */
+        return true;
+    }
+
+    void selectFromMempool(Block& block) {
+        std::set<std::string> addToBlock;
+        Block newBlock;
+        for(const auto& txidTx: this->mempool.mempool) {
+            tryAddToBlock(newBlock, txidTx.first, addToBlock);
+            /*
+            if(newBlock.serialize() < MAX_BLOCK_SERIALIZED_SIZE) {
+                block = newBlock;
+            } else {
+                break;
+            }
+             */
         }
     }
 };
