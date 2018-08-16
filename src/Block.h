@@ -10,6 +10,8 @@
 #include <string>
 #include <memory>
 #include <sstream>
+#include <openssl/ripemd.h>
+#include <openssl/sha.h>
 
 #include "Transaction.h"
 #include "sha256.h"
@@ -63,7 +65,7 @@ public:
                 : toOrphan(block), runtime_error(_Message) {};
     };
 
-    int validateBlock(const std::time_t medianTimestamp, const bool hasActiveChain, const int activeChainIdx) {
+    int validate(const std::time_t medianTimestamp, const bool hasActiveChain, const int activeChainIdx) {
         if(this->txns.size() == 0) {
             throw new BlockValidationException("txns empty");
         }
@@ -104,9 +106,8 @@ public:
                 if(this->txns[i]->isCoinbase()) {
                     throw new BlockValidationException("First txn must be coinbase and no more");
                 }
-                const auto tx = this->txns[i];
                 try {
-                    //tx->validateTxn(this->txns, false);
+                    this->txns[i]->validate(this->txns, false);
                 } catch (std::runtime_error error) {
                     const std::string message = "Transaction(" + tx->id() + ") failed to validate";
                     std::cout << message << "\n";
@@ -119,7 +120,7 @@ public:
         try {
             for(int i=0; i<numTxns; ++i) {
                 txnId = this->txns[i]->id();
-                this->txns[i]->validBasics(i == 0);
+                this->txns[i]->validateBasics(i == 0);
             }
         } catch (std::runtime_error error) {
             std::cout << "Transaction(" << txnId << ") in Block(" << this->header() << ") failed to validate\n";

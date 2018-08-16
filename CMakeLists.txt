@@ -5,6 +5,9 @@ set(CMAKE_CXX_STANDARD 14)
 
 add_executable(tinychain_cpp src/main.cpp src/Block.h src/OutPoint.h src/Params.h src/sha256.cpp src/sha256.h src/Transaction.h src/TxIn.h src/TxOut.h src/UnspentTxOut.h src/TinyChain.cpp src/TinyChain.h src/LocatedBlock.h src/TxoutForTxin.h src/Utility.h src/Utility.cpp src/UtxoSet.h)
 
+find_package(OpenSSL REQUIRED)
+target_link_libraries(tinychain_cpp OpenSSL::SSL)
+
 add_subdirectory (lib/evpp)
 target_link_libraries (tinychain_cpp evpp)
 link_directories (lib/evpp)
