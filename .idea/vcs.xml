@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="VcsDirectoryMappings">
-    <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/lib/cereal" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/lib/evpp" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/lib/evpp/3rdparty/concurrentqueue" vcs="Git" />
-  </component>
-</project>
