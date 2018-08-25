@@ -61,4 +61,6 @@ const int RESERVE_TRANSACTION_SIZE_OF_BLOCK = 5;
 
 const int RESERVE_BLOCK_SIZE_OF_CHAIN = 20;
 
+const size_t HEADER_SIZE = 4;
+
 #endif //TINYCHAIN_CPP_PARAMS_H

@@ -11,15 +11,16 @@
 #include <memory>
 #include <sstream>
 #include <exception>
+#include <nlohmann/json.hpp>
 
+#include "Utility.h"
 #include "Params.h"
 #include "OutPoint.h"
 #include "TxIn.h"
 #include "TxOut.h"
+#include "UnspentTxOut.h"
 
-//#include "UtxoSet.h"
-//#include "Utility.h"
-//#include "Mempool.h"
+bool validateSignatureForSpend(std::shared_ptr<TxIn>, std::shared_ptr<UnspentTxOut>, std::vector<std::shared_ptr<TxOut>>&);
 
 class Transaction {
 public:
@@ -70,6 +71,25 @@ public:
         return ss.str();
     }
 
+    static std::shared_ptr<Transaction> deserialize(const nlohmann::json& json) {
+        auto tx = std::make_shared<Transaction>();
+
+        auto txinSize = json["txins"].size();
+        tx->txins.resize(txinSize);
+        for(size_t i = 0; i< txinSize; ++i) {
+            tx->txins[i] = TxIn::deserialize(json["txins"][i]);
+        }
+
+        auto txoutSize = json["txouts"].size();
+        tx->txouts.resize(txoutSize);
+        for(size_t i = 0; i < txoutSize; ++i) {
+            tx->txouts[i] = TxOut::deserialize(json["txouts"][i]);
+        }
+
+        tx->locktime = json["locktime"];
+        return tx;
+    }
+
     static std::shared_ptr<Transaction> createCoinbase(const std::string payToAddr, const int value, const int height) {
         auto transaction = std::make_shared<Transaction>();
         auto txin = std::make_shared<TxIn>(std::make_shared<OutPoint>("", 0), std::to_string(height), "", 0);
@@ -110,7 +130,7 @@ public:
             throw std::runtime_error("Spend value too high");
         }
     }
-/*
+
     // exception using validation
     class TransactionValidationException : public std::runtime_error {
         public:
@@ -121,32 +141,42 @@ public:
                     : isOrphen(isOrphen), runtime_error(_Message) {};
     };
 
-    void validate(UtxOSet& utxoSet, Mempool& mempool, const int currentHeight) {
-        return this->validate(utxoSet, mempool, currentHeight, std::vector<std::shared_ptr<Transaction>>(), false, true);
+    void validate(std::map<OutPoint, UnspentTxOut>& utxoSet, std::map<std::string, std::shared_ptr<Transaction>>& mempool, const int currentHeight) {
+        auto slidingBlocks = std::vector<std::shared_ptr<Transaction>>();
+        return this->validate(utxoSet, mempool, currentHeight, slidingBlocks, false, true);
     }
 
-    void validate(UtxoSet& utxoSet, Mempool& mempool, const int currentHeight, std::vector<std::shared_ptr<Transaction>>& slidingsInBlock) {
+    void validate(std::map<OutPoint, UnspentTxOut>& utxoSet, std::map<std::string, std::shared_ptr<Transaction>>& mempool, const int currentHeight, std::vector<std::shared_ptr<Transaction>>& slidingsInBlock) {
         return this->validate(utxoSet, mempool, currentHeight, slidingsInBlock, false, true);
     }
 
-    void validate(UtxoSet& utxoSet, Mempool& mempool, const int currentHeight, std::vector<std::shared_ptr<Transaction>>& slidingsInBlock, const bool allowUtxoFromMempool) {
+    void validate(std::map<OutPoint, UnspentTxOut>& utxoSet, std::map<std::string, std::shared_ptr<Transaction>>& mempool, const int currentHeight, std::vector<std::shared_ptr<Transaction>>& slidingsInBlock, const bool allowUtxoFromMempool) {
         return this->validate(utxoSet, mempool, currentHeight, slidingsInBlock, false, allowUtxoFromMempool);
     }
 
-    void validate(UtxoSet& utxoSet, Mempool& mempool, const int currentHeight, std::vector<std::shared_ptr<Transaction>>& slidingsInBlock, const bool asCoinbase, const bool allowUtxoFromMempool) {
+    void validate(std::map<OutPoint, UnspentTxOut>& utxoSet, std::map<std::string, std::shared_ptr<Transaction>>& mempool, const int currentHeight, std::vector<std::shared_ptr<Transaction>>& slidingsInBlock, const bool asCoinbase, const bool allowUtxoFromMempool) {
+
         // Validate a single transaction. Used in various contexts, so the
         // parameters facilitate different uses.
         this->validateBasics(asCoinbase);
 
         long availableToSpend = 0;
         long i = 0;
-        for(const auto& txin: this->txins) {
-            auto utxo = utxoSet.get(txin->toSpend->txid, txin->toSpend->txoutIdx);
+        for(auto& txin: this->txins) {
+            /* isSame
+             * auto utxo = utxoSet.get(txin->toSpend->txid, txin->toSpend->txoutIdx); */
+            const auto outpoint = OutPoint(txin->toSpend->txid, txin->toSpend->txoutIdx);
+            auto utxo = utxoSet.count(outpoint) > 0 ? std::shared_ptr<UnspentTxOut>(&utxoSet[outpoint]) : nullptr;
+
             if(utxo == nullptr && slidingsInBlock.size() > 0) {
-                utxo = findUtxoInList(txin, slidingsInBlock);
+                utxo = this->findUtxoInList(txin, slidingsInBlock);
             }
-            if(utxo == nullptr && allowUtxoFromMempool) {
-                utxo = mempool.findUtxo(txin);
+            if(utxo == nullptr && allowUtxoFromMempool && mempool.count(txin->toSpend->txid) > 0) {
+                /* isSame
+                 * utxo = mempool.findUtxo(txin);
+                 * */
+                auto txout = mempool[txin->toSpend->txid]->txouts[txin->toSpend->txoutIdx];
+                utxo = std::make_shared<UnspentTxOut>(txout->value, txout->toAddress, txin->toSpend->txid, txin->toSpend->txoutIdx, false, -1);
             }
 
             if(utxo == nullptr) {
@@ -160,7 +190,7 @@ public:
 
             try {
                 validateSignatureForSpend(txin, utxo, this->txouts);
-            } catch(TxUnlockException e) {
+            } catch(std::runtime_error e) {
                 const auto message = txin->toString() + " is not a valid spend of " + utxo->toString();
                 throw new TransactionValidationException(message.c_str());
             }
@@ -177,7 +207,22 @@ public:
             throw new TransactionValidationException("Spend value is more than available");
         }
     }
-    */
+
+    std::shared_ptr<UnspentTxOut> findUtxoInList(std::shared_ptr<TxIn> txin, std::vector<std::shared_ptr<Transaction>>& txns) {
+        auto txid = txin->toSpend->txid;
+        auto txoutIdx = txin->toSpend->txoutIdx;
+
+        std::shared_ptr<TxOut> txout = nullptr;
+        for(const auto& tx: txns) {
+            if(tx->id() == txid) {
+                txout = tx->txouts[txoutIdx];
+                break;
+            }
+        }
+        return (txout != nullptr
+                ? std::make_shared<UnspentTxOut>(txout->value, txout->toAddress, txid, txoutIdx, false, -1)
+                : nullptr);
+    }
 };
 
 #endif //TINYCHAIN_CPP_TRANSACTION_H

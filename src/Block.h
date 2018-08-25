@@ -14,6 +14,7 @@
 #include <openssl/sha.h>
 #include <boost/multiprecision/cpp_int.hpp>
 #include <boost/multiprecision/integer.hpp>
+#include <nlohmann/json.hpp>
 
 #include "Params.h"
 #include "Transaction.h"
@@ -65,7 +66,7 @@ public:
                 : toOrphan(block), runtime_error(_Message) {};
     };
 
-    int validate(const std::time_t medianTimestamp, const bool hasActiveChain, const int activeChainIdx) {
+    int validate(std::map<OutPoint, UnspentTxOut>& utxoSet, std::map<std::string, std::shared_ptr<Transaction>>& mempool, const int currentHeight, const std::time_t medianTimestamp) {
         if(this->txns.size() == 0) {
             throw new BlockValidationException("txns empty");
         }
@@ -121,10 +122,13 @@ public:
                 if(this->txns[i]->isCoinbase()) {
                     throw new BlockValidationException("First txn must be coinbase and no more");
                 }
-                try {
-//                    this->txns[i]->validate(this->txns, false);
-                } catch (std::runtime_error error) {
 
+                try {
+                    std::vector<std::shared_ptr<Transaction>> slidingsInBlock;
+                    slidingsInBlock.resize(this->txns.size() - 1);
+                    std::copy(this->txns.begin() + 1, this->txns.end(), slidingsInBlock.begin());
+                    this->txns[i]->validate(utxoSet, mempool, currentHeight, slidingsInBlock, false);
+                } catch (std::runtime_error error) {
                     const std::string message = "Transaction(" + this->txns[i]->id() + ") failed to validate";
                     std::cout << message << "\n";
                     throw new BlockValidationException(message.c_str());
@@ -191,6 +195,27 @@ public:
 
         ss << "}";
         return ss.str();
+    }
+
+    std::string serialize() {
+        return this->toString();
+    }
+
+    static std::shared_ptr<Block> deserialize(const nlohmann::json& json) {
+        auto block = std::make_shared<Block>();
+        block->version = json["version"];
+        block->prevBlockHash = json["prevBlockHash"];
+        block->markleHash = json["markleHash"];
+        block->timestamp = json["timestamp"];
+        block->bits = json["bits"];
+        block->nonce = json["nonce"];
+
+        size_t numTxns = json["txns"].size();
+        block->txns.resize(numTxns);
+        for(size_t i = 0; i< numTxns; ++i) {
+            block->txns[i] = Transaction::deserialize(json["txns"][i]);
+        }
+        return block;
     }
 
     std::string id() {

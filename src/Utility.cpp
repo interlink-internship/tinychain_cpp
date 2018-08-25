@@ -73,26 +73,6 @@ std::bitset<256> hexTo256Bits(const std::string from) {
 }
  */
 
-std::shared_ptr<UnspentTxOut> findUtxoInList(std::shared_ptr<TxIn> txin, std::vector<std::shared_ptr<Transaction>>& txns) {
-    auto txid = txin->toSpend->txid;
-    auto txoutIdx = txin->toSpend->txoutIdx;
-
-    std::shared_ptr<TxOut> txout = nullptr;
-    for(const auto& tx: txns) {
-        if(tx->id() == txid) {
-            txout = tx->txouts[txoutIdx];
-            break;
-        }
-    }
-    return (txout != nullptr
-            ? std::make_shared<UnspentTxOut>(txout->value, txout->toAddress, txid, txoutIdx, false, -1)
-            : nullptr);
-}
-
-bool validateSignatureForSpend(std::shared_ptr<TxIn> txin, std::shared_ptr<UnspentTxOut> utxo, std::vector<std::shared_ptr<TxOut>> txouts) {
-    return false;
-}
-
 char hexCharToByte(const char c) {
     if(c >= '0' && c <= '9') {
         return c - '0';
@@ -231,43 +211,83 @@ std::string pubkeyToAddress(std::vector<unsigned char>& bytes) {
     return base58EncodeCheck(data, RIPEMD160_DIGEST_LENGTH + 1);
 }
 
-/*
-bool calcNonce(Block& block, int& nonce, const boost::multiprecision::uint256_t target, std::mutex& mineInterrupt, bool& isMineInterrupt) {
-    while(true) {
-        auto header = block.header(nonce);
-        std::vector<unsigned char> bytes;
-        hexStringToBytes(header, bytes);
-        unsigned char sha256Hash[SHA256_DIGEST_LENGTH];
-        bytesSha256(bytes.data(), bytes.size(), sha256Hash);
-        bytesSha256(sha256Hash, SHA256_DIGEST_LENGTH, sha256Hash);
+void generateRandomBits(const size_t bitLen, std::vector<unsigned char>& bits) {
+    size_t bytes = (bitLen/8) + (bitLen % 8 != 0);
+    bits.resize(bytes);
 
-        boost::multiprecision::uint256_t value = 0;
-        for(int i=0; i<SHA256_DIGEST_LENGTH; ++i) {
-            value *= 256;
-            value += sha256Hash[i];
-        }
-        if(value < target) {
-            break;
-        }
+    std::random_device rnd;
+    std::mt19937_64 mt(rnd());
 
-        ++nonce;
-        if(nonce % 100000 == 0) {
-            mineInterrupt.lock();
-            bool isMineInterrupt = isMineInterrupt;
-            mineInterrupt.unlock();
-
-            if(isMineInterrupt) {
-                std::cout << "[mining] interrupted" << std::endl;
-                mineInterrupt.lock();
-                bool isMineInterrupt = false;
-                mineInterrupt.unlock();
-                return false;
-            }
+    int chunckNum = bytes/8 + (bytes % 8 != 0);
+    std::uint64_t mask = 0b11111111;
+    for(int i=0; i<chunckNum; ++i) {
+        std::uint64_t value = mt();
+        for(int k=0; k < 8; ++k) {
+            if(i*8+k >= bytes) break;
+            bits[i*8 + k] = (value >> 8*(8-k-1)) & mask;
         }
+    }
+}
+
+void convertPrivateKeyToPublicKey(std::vector<unsigned char>& privateKeyBytes, std::vector<unsigned char>& publicKeyBytes) {
+    publicKeyBytes.resize(64);
+    secp256k1_context* ctx = secp256k1_context_create(SECP256K1_CONTEXT_SIGN);
+    secp256k1_pubkey pubkey;
+    secp256k1_ec_pubkey_create(ctx, &pubkey, privateKeyBytes.data());
+    std::copy(pubkey.data, pubkey.data + 64, publicKeyBytes.begin());
+}
+
+void generateSignature(std::vector<unsigned char>& privateKey, std::vector<unsigned char>& message, std::vector<unsigned char>& signature) {
+    signature.resize(64);
+
+    auto privateKeyBytes = privateKey.data();
+    auto messageBytes = message.data();
+    secp256k1_ecdsa_signature sig;
+    secp256k1_context* ctx = secp256k1_context_create(SECP256K1_CONTEXT_SIGN);
+    secp256k1_ecdsa_sign(ctx, &sig, messageBytes, privateKeyBytes, NULL, NULL);
+    std::copy(sig.data, sig.data + 64, signature.begin());
+}
+
+bool verifySignature(std::vector<unsigned char>& signature, std::vector<unsigned char>& message, std::vector<unsigned char> publicKey) {
+    secp256k1_context* ctx = secp256k1_context_create(SECP256K1_CONTEXT_VERIFY);
+    secp256k1_ecdsa_signature sig;
+    std::copy(signature.begin(), signature.end(), sig.data);
+    auto msg = message.data();
+    secp256k1_pubkey pub;
+    std::copy(publicKey.begin(), publicKey.end(), pub.data);
+
+    return secp256k1_ecdsa_verify(ctx, &sig, msg, &pub) == 1;
+}
+
+
+bool validateSignatureForSpend(std::shared_ptr<TxIn> txin, std::shared_ptr<UnspentTxOut> utxo, std::vector<std::shared_ptr<TxOut>>& txouts) {
+    auto pubkeyAsAddr = pubkeyToAddress(txin->unlockPk);
+    if(pubkeyAsAddr != utxo->toAddr) {
+        throw new std::runtime_error("Pubkey doesn't match");
+    }
+
+    std::vector<char> hexPk;
+    bytesToHexString(txin->unlockPk, hexPk);
+
+    std::stringstream ss;
+    ss << txin->toSpend->toString();
+    ss << txin->sequence;
+    ss << std::string(hexPk.begin(), hexPk.end());
+    ss << "[";
+    int cnt = 0;
+    for(const auto& txout: txouts) {
+        if(cnt++ != 0) {
+            ss << ",";
+        }
+        ss << txout->toString();
+    }
+    ss << "]";
+    std::string message = sha256DoubleHash(ss.str());
+    std::vector<unsigned char> msg;
+    hexStringToBytes(message, msg);
+
+    if(!verifySignature(txin->unlockSig, msg, txin->unlockPk)) {
+        throw new std::runtime_error("Signature doesn't match");
     }
     return true;
 }
-*/
-
-
-

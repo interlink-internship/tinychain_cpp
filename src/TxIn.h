@@ -10,6 +10,7 @@
 #include <string>
 #include <memory>
 #include <sstream>
+#include <nlohmann/json.hpp>
 
 #include "OutPoint.h"
 
@@ -21,8 +22,8 @@ public:
     std::shared_ptr<OutPoint> toSpend;
 
     // The (signature, pubkey) pair which unlocks the TxOut for spending.
-    std::vector<char> unlockSig;
-    std::vector<char> unlockPk;
+    std::vector<unsigned char> unlockSig;
+    std::vector<unsigned char> unlockPk;
 
     // A sender-defined sequence number which allows us replacement of the txn
     // if desired.
@@ -31,16 +32,16 @@ public:
     TxIn()
     {
         this->toSpend = std::make_shared<OutPoint>();
-        this->unlockSig = std::vector<char>();
-        this->unlockPk = std::vector<char>();
+        this->unlockSig = std::vector<unsigned char>();
+        this->unlockPk = std::vector<unsigned char>();
         this->sequence = 0;
     }
 
     TxIn(std::shared_ptr<OutPoint> toSpend, const std::string unlockSig, const std::string unnlockPk, const int sequence)
             : toSpend(toSpend), sequence(sequence)
     {
-        this->unlockSig = std::vector<char>(unlockSig.begin(), unlockSig.end());
-        this->unlockPk = std::vector<char>(unlockPk.begin(), unlockPk.end());
+        this->unlockSig = std::vector<unsigned char>(unlockSig.begin(), unlockSig.end());
+        this->unlockPk = std::vector<unsigned char>(unlockPk.begin(), unlockPk.end());
     }
 
     TxIn(const TxIn&);
@@ -58,6 +59,22 @@ public:
         ss << "\"sequence\":" << sequence;
         ss << "}";
         return ss.str();
+    }
+
+    static std::shared_ptr<TxIn> deserialize(const nlohmann::json& json) {
+        auto txin = std::make_shared<TxIn>();
+
+        txin->toSpend = OutPoint::deserialize(json["toSpend"]);
+
+        std::string unlockSig = json["unlockSig"];
+        txin->unlockSig = std::vector<unsigned char>(unlockSig.begin(), unlockSig.end());
+
+        std::string unlockPk = json["unlockPk"];
+        txin->unlockPk = std::vector<unsigned char>(unlockPk.begin(), unlockSig.end());
+
+        txin->sequence = json["sequence"];
+
+        return txin;
     }
 };
 

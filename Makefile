@@ -192,188 +192,6 @@ tinychain_cpp/fast:
 .PHONY : tinychain_cpp/fast
 
 #=============================================================================
-# Target rules for targets named evpp_boost_static
-
-# Build rule for target.
-evpp_boost_static: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 evpp_boost_static
-.PHONY : evpp_boost_static
-
-# fast build rule for target.
-evpp_boost_static/fast:
-	$(MAKE) -f lib/evpp/evpp/CMakeFiles/evpp_boost_static.dir/build.make lib/evpp/evpp/CMakeFiles/evpp_boost_static.dir/build
-.PHONY : evpp_boost_static/fast
-
-#=============================================================================
-# Target rules for targets named evpp_concurrentqueue_static
-
-# Build rule for target.
-evpp_concurrentqueue_static: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 evpp_concurrentqueue_static
-.PHONY : evpp_concurrentqueue_static
-
-# fast build rule for target.
-evpp_concurrentqueue_static/fast:
-	$(MAKE) -f lib/evpp/evpp/CMakeFiles/evpp_concurrentqueue_static.dir/build.make lib/evpp/evpp/CMakeFiles/evpp_concurrentqueue_static.dir/build
-.PHONY : evpp_concurrentqueue_static/fast
-
-#=============================================================================
-# Target rules for targets named evpp_concurrentqueue
-
-# Build rule for target.
-evpp_concurrentqueue: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 evpp_concurrentqueue
-.PHONY : evpp_concurrentqueue
-
-# fast build rule for target.
-evpp_concurrentqueue/fast:
-	$(MAKE) -f lib/evpp/evpp/CMakeFiles/evpp_concurrentqueue.dir/build.make lib/evpp/evpp/CMakeFiles/evpp_concurrentqueue.dir/build
-.PHONY : evpp_concurrentqueue/fast
-
-#=============================================================================
-# Target rules for targets named evpp_static
-
-# Build rule for target.
-evpp_static: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 evpp_static
-.PHONY : evpp_static
-
-# fast build rule for target.
-evpp_static/fast:
-	$(MAKE) -f lib/evpp/evpp/CMakeFiles/evpp_static.dir/build.make lib/evpp/evpp/CMakeFiles/evpp_static.dir/build
-.PHONY : evpp_static/fast
-
-#=============================================================================
-# Target rules for targets named evpp_boost
-
-# Build rule for target.
-evpp_boost: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 evpp_boost
-.PHONY : evpp_boost
-
-# fast build rule for target.
-evpp_boost/fast:
-	$(MAKE) -f lib/evpp/evpp/CMakeFiles/evpp_boost.dir/build.make lib/evpp/evpp/CMakeFiles/evpp_boost.dir/build
-.PHONY : evpp_boost/fast
-
-#=============================================================================
-# Target rules for targets named evpp_lite_static
-
-# Build rule for target.
-evpp_lite_static: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 evpp_lite_static
-.PHONY : evpp_lite_static
-
-# fast build rule for target.
-evpp_lite_static/fast:
-	$(MAKE) -f lib/evpp/evpp/CMakeFiles/evpp_lite_static.dir/build.make lib/evpp/evpp/CMakeFiles/evpp_lite_static.dir/build
-.PHONY : evpp_lite_static/fast
-
-#=============================================================================
-# Target rules for targets named evpp
-
-# Build rule for target.
-evpp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 evpp
-.PHONY : evpp
-
-# fast build rule for target.
-evpp/fast:
-	$(MAKE) -f lib/evpp/evpp/CMakeFiles/evpp.dir/build.make lib/evpp/evpp/CMakeFiles/evpp.dir/build
-.PHONY : evpp/fast
-
-#=============================================================================
-# Target rules for targets named evnsq_static
-
-# Build rule for target.
-evnsq_static: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 evnsq_static
-.PHONY : evnsq_static
-
-# fast build rule for target.
-evnsq_static/fast:
-	$(MAKE) -f lib/evpp/apps/evnsq/CMakeFiles/evnsq_static.dir/build.make lib/evpp/apps/evnsq/CMakeFiles/evnsq_static.dir/build
-.PHONY : evnsq_static/fast
-
-#=============================================================================
-# Target rules for targets named evnsq
-
-# Build rule for target.
-evnsq: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 evnsq
-.PHONY : evnsq
-
-# fast build rule for target.
-evnsq/fast:
-	$(MAKE) -f lib/evpp/apps/evnsq/CMakeFiles/evnsq.dir/build.make lib/evpp/apps/evnsq/CMakeFiles/evnsq.dir/build
-.PHONY : evnsq/fast
-
-#=============================================================================
-# Target rules for targets named evnsq_tail
-
-# Build rule for target.
-evnsq_tail: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 evnsq_tail
-.PHONY : evnsq_tail
-
-# fast build rule for target.
-evnsq_tail/fast:
-	$(MAKE) -f lib/evpp/apps/evnsq/evnsqtail/CMakeFiles/evnsq_tail.dir/build.make lib/evpp/apps/evnsq/evnsqtail/CMakeFiles/evnsq_tail.dir/build
-.PHONY : evnsq_tail/fast
-
-#=============================================================================
-# Target rules for targets named unittest_evnsq_producer_with_auth
-
-# Build rule for target.
-unittest_evnsq_producer_with_auth: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 unittest_evnsq_producer_with_auth
-.PHONY : unittest_evnsq_producer_with_auth
-
-# fast build rule for target.
-unittest_evnsq_producer_with_auth/fast:
-	$(MAKE) -f lib/evpp/apps/evnsq/test/producer_with_auth/CMakeFiles/unittest_evnsq_producer_with_auth.dir/build.make lib/evpp/apps/evnsq/test/producer_with_auth/CMakeFiles/unittest_evnsq_producer_with_auth.dir/build
-.PHONY : unittest_evnsq_producer_with_auth/fast
-
-#=============================================================================
-# Target rules for targets named evmc
-
-# Build rule for target.
-evmc: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 evmc
-.PHONY : evmc
-
-# fast build rule for target.
-evmc/fast:
-	$(MAKE) -f lib/evpp/apps/evmc/CMakeFiles/evmc.dir/build.make lib/evpp/apps/evmc/CMakeFiles/evmc.dir/build
-.PHONY : evmc/fast
-
-#=============================================================================
-# Target rules for targets named evmc_static
-
-# Build rule for target.
-evmc_static: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 evmc_static
-.PHONY : evmc_static
-
-# fast build rule for target.
-evmc_static/fast:
-	$(MAKE) -f lib/evpp/apps/evmc/CMakeFiles/evmc_static.dir/build.make lib/evpp/apps/evmc/CMakeFiles/evmc_static.dir/build
-.PHONY : evmc_static/fast
-
-#=============================================================================
-# Target rules for targets named evmc_test
-
-# Build rule for target.
-evmc_test: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 evmc_test
-.PHONY : evmc_test
-
-# fast build rule for target.
-evmc_test/fast:
-	$(MAKE) -f lib/evpp/apps/evmc/test/CMakeFiles/evmc_test.dir/build.make lib/evpp/apps/evmc/test/CMakeFiles/evmc_test.dir/build
-.PHONY : evmc_test/fast
-
-#=============================================================================
 # Target rules for targets named ContinuousCoverage
 
 # Build rule for target.
@@ -383,7 +201,7 @@ ContinuousCoverage: cmake_check_build_system
 
 # fast build rule for target.
 ContinuousCoverage/fast:
-	$(MAKE) -f lib/evpp/test/CMakeFiles/ContinuousCoverage.dir/build.make lib/evpp/test/CMakeFiles/ContinuousCoverage.dir/build
+	$(MAKE) -f lib/json/CMakeFiles/ContinuousCoverage.dir/build.make lib/json/CMakeFiles/ContinuousCoverage.dir/build
 .PHONY : ContinuousCoverage/fast
 
 #=============================================================================
@@ -396,7 +214,7 @@ ContinuousTest: cmake_check_build_system
 
 # fast build rule for target.
 ContinuousTest/fast:
-	$(MAKE) -f lib/evpp/test/CMakeFiles/ContinuousTest.dir/build.make lib/evpp/test/CMakeFiles/ContinuousTest.dir/build
+	$(MAKE) -f lib/json/CMakeFiles/ContinuousTest.dir/build.make lib/json/CMakeFiles/ContinuousTest.dir/build
 .PHONY : ContinuousTest/fast
 
 #=============================================================================
@@ -409,21 +227,8 @@ ContinuousBuild: cmake_check_build_system
 
 # fast build rule for target.
 ContinuousBuild/fast:
-	$(MAKE) -f lib/evpp/test/CMakeFiles/ContinuousBuild.dir/build.make lib/evpp/test/CMakeFiles/ContinuousBuild.dir/build
+	$(MAKE) -f lib/json/CMakeFiles/ContinuousBuild.dir/build.make lib/json/CMakeFiles/ContinuousBuild.dir/build
 .PHONY : ContinuousBuild/fast
-
-#=============================================================================
-# Target rules for targets named ContinuousUpdate
-
-# Build rule for target.
-ContinuousUpdate: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ContinuousUpdate
-.PHONY : ContinuousUpdate
-
-# fast build rule for target.
-ContinuousUpdate/fast:
-	$(MAKE) -f lib/evpp/test/CMakeFiles/ContinuousUpdate.dir/build.make lib/evpp/test/CMakeFiles/ContinuousUpdate.dir/build
-.PHONY : ContinuousUpdate/fast
 
 #=============================================================================
 # Target rules for targets named ContinuousStart
@@ -435,7 +240,7 @@ ContinuousStart: cmake_check_build_system
 
 # fast build rule for target.
 ContinuousStart/fast:
-	$(MAKE) -f lib/evpp/test/CMakeFiles/ContinuousStart.dir/build.make lib/evpp/test/CMakeFiles/ContinuousStart.dir/build
+	$(MAKE) -f lib/json/CMakeFiles/ContinuousStart.dir/build.make lib/json/CMakeFiles/ContinuousStart.dir/build
 .PHONY : ContinuousStart/fast
 
 #=============================================================================
@@ -448,21 +253,8 @@ ExperimentalBuild: cmake_check_build_system
 
 # fast build rule for target.
 ExperimentalBuild/fast:
-	$(MAKE) -f lib/evpp/test/CMakeFiles/ExperimentalBuild.dir/build.make lib/evpp/test/CMakeFiles/ExperimentalBuild.dir/build
+	$(MAKE) -f lib/json/CMakeFiles/ExperimentalBuild.dir/build.make lib/json/CMakeFiles/ExperimentalBuild.dir/build
 .PHONY : ExperimentalBuild/fast
-
-#=============================================================================
-# Target rules for targets named ExperimentalSubmit
-
-# Build rule for target.
-ExperimentalSubmit: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ExperimentalSubmit
-.PHONY : ExperimentalSubmit
-
-# fast build rule for target.
-ExperimentalSubmit/fast:
-	$(MAKE) -f lib/evpp/test/CMakeFiles/ExperimentalSubmit.dir/build.make lib/evpp/test/CMakeFiles/ExperimentalSubmit.dir/build
-.PHONY : ExperimentalSubmit/fast
 
 #=============================================================================
 # Target rules for targets named ExperimentalCoverage
@@ -474,8 +266,34 @@ ExperimentalCoverage: cmake_check_build_system
 
 # fast build rule for target.
 ExperimentalCoverage/fast:
-	$(MAKE) -f lib/evpp/test/CMakeFiles/ExperimentalCoverage.dir/build.make lib/evpp/test/CMakeFiles/ExperimentalCoverage.dir/build
+	$(MAKE) -f lib/json/CMakeFiles/ExperimentalCoverage.dir/build.make lib/json/CMakeFiles/ExperimentalCoverage.dir/build
 .PHONY : ExperimentalCoverage/fast
+
+#=============================================================================
+# Target rules for targets named ExperimentalSubmit
+
+# Build rule for target.
+ExperimentalSubmit: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ExperimentalSubmit
+.PHONY : ExperimentalSubmit
+
+# fast build rule for target.
+ExperimentalSubmit/fast:
+	$(MAKE) -f lib/json/CMakeFiles/ExperimentalSubmit.dir/build.make lib/json/CMakeFiles/ExperimentalSubmit.dir/build
+.PHONY : ExperimentalSubmit/fast
+
+#=============================================================================
+# Target rules for targets named ContinuousUpdate
+
+# Build rule for target.
+ContinuousUpdate: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ContinuousUpdate
+.PHONY : ContinuousUpdate
+
+# fast build rule for target.
+ContinuousUpdate/fast:
+	$(MAKE) -f lib/json/CMakeFiles/ContinuousUpdate.dir/build.make lib/json/CMakeFiles/ContinuousUpdate.dir/build
+.PHONY : ContinuousUpdate/fast
 
 #=============================================================================
 # Target rules for targets named ExperimentalUpdate
@@ -487,7 +305,7 @@ ExperimentalUpdate: cmake_check_build_system
 
 # fast build rule for target.
 ExperimentalUpdate/fast:
-	$(MAKE) -f lib/evpp/test/CMakeFiles/ExperimentalUpdate.dir/build.make lib/evpp/test/CMakeFiles/ExperimentalUpdate.dir/build
+	$(MAKE) -f lib/json/CMakeFiles/ExperimentalUpdate.dir/build.make lib/json/CMakeFiles/ExperimentalUpdate.dir/build
 .PHONY : ExperimentalUpdate/fast
 
 #=============================================================================
@@ -500,7 +318,7 @@ ExperimentalStart: cmake_check_build_system
 
 # fast build rule for target.
 ExperimentalStart/fast:
-	$(MAKE) -f lib/evpp/test/CMakeFiles/ExperimentalStart.dir/build.make lib/evpp/test/CMakeFiles/ExperimentalStart.dir/build
+	$(MAKE) -f lib/json/CMakeFiles/ExperimentalStart.dir/build.make lib/json/CMakeFiles/ExperimentalStart.dir/build
 .PHONY : ExperimentalStart/fast
 
 #=============================================================================
@@ -513,7 +331,7 @@ ContinuousSubmit: cmake_check_build_system
 
 # fast build rule for target.
 ContinuousSubmit/fast:
-	$(MAKE) -f lib/evpp/test/CMakeFiles/ContinuousSubmit.dir/build.make lib/evpp/test/CMakeFiles/ContinuousSubmit.dir/build
+	$(MAKE) -f lib/json/CMakeFiles/ContinuousSubmit.dir/build.make lib/json/CMakeFiles/ContinuousSubmit.dir/build
 .PHONY : ContinuousSubmit/fast
 
 #=============================================================================
@@ -526,7 +344,7 @@ ExperimentalTest: cmake_check_build_system
 
 # fast build rule for target.
 ExperimentalTest/fast:
-	$(MAKE) -f lib/evpp/test/CMakeFiles/ExperimentalTest.dir/build.make lib/evpp/test/CMakeFiles/ExperimentalTest.dir/build
+	$(MAKE) -f lib/json/CMakeFiles/ExperimentalTest.dir/build.make lib/json/CMakeFiles/ExperimentalTest.dir/build
 .PHONY : ExperimentalTest/fast
 
 #=============================================================================
@@ -539,21 +357,21 @@ NightlySubmit: cmake_check_build_system
 
 # fast build rule for target.
 NightlySubmit/fast:
-	$(MAKE) -f lib/evpp/test/CMakeFiles/NightlySubmit.dir/build.make lib/evpp/test/CMakeFiles/NightlySubmit.dir/build
+	$(MAKE) -f lib/json/CMakeFiles/NightlySubmit.dir/build.make lib/json/CMakeFiles/NightlySubmit.dir/build
 .PHONY : NightlySubmit/fast
 
 #=============================================================================
-# Target rules for targets named evpp_unittest_concurrentqueue
+# Target rules for targets named NightlyMemCheck
 
 # Build rule for target.
-evpp_unittest_concurrentqueue: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 evpp_unittest_concurrentqueue
-.PHONY : evpp_unittest_concurrentqueue
+NightlyMemCheck: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 NightlyMemCheck
+.PHONY : NightlyMemCheck
 
 # fast build rule for target.
-evpp_unittest_concurrentqueue/fast:
-	$(MAKE) -f lib/evpp/test/CMakeFiles/evpp_unittest_concurrentqueue.dir/build.make lib/evpp/test/CMakeFiles/evpp_unittest_concurrentqueue.dir/build
-.PHONY : evpp_unittest_concurrentqueue/fast
+NightlyMemCheck/fast:
+	$(MAKE) -f lib/json/CMakeFiles/NightlyMemCheck.dir/build.make lib/json/CMakeFiles/NightlyMemCheck.dir/build
+.PHONY : NightlyMemCheck/fast
 
 #=============================================================================
 # Target rules for targets named ExperimentalConfigure
@@ -565,7 +383,7 @@ ExperimentalConfigure: cmake_check_build_system
 
 # fast build rule for target.
 ExperimentalConfigure/fast:
-	$(MAKE) -f lib/evpp/test/CMakeFiles/ExperimentalConfigure.dir/build.make lib/evpp/test/CMakeFiles/ExperimentalConfigure.dir/build
+	$(MAKE) -f lib/json/CMakeFiles/ExperimentalConfigure.dir/build.make lib/json/CMakeFiles/ExperimentalConfigure.dir/build
 .PHONY : ExperimentalConfigure/fast
 
 #=============================================================================
@@ -578,7 +396,7 @@ NightlyCoverage: cmake_check_build_system
 
 # fast build rule for target.
 NightlyCoverage/fast:
-	$(MAKE) -f lib/evpp/test/CMakeFiles/NightlyCoverage.dir/build.make lib/evpp/test/CMakeFiles/NightlyCoverage.dir/build
+	$(MAKE) -f lib/json/CMakeFiles/NightlyCoverage.dir/build.make lib/json/CMakeFiles/NightlyCoverage.dir/build
 .PHONY : NightlyCoverage/fast
 
 #=============================================================================
@@ -591,7 +409,7 @@ NightlyTest: cmake_check_build_system
 
 # fast build rule for target.
 NightlyTest/fast:
-	$(MAKE) -f lib/evpp/test/CMakeFiles/NightlyTest.dir/build.make lib/evpp/test/CMakeFiles/NightlyTest.dir/build
+	$(MAKE) -f lib/json/CMakeFiles/NightlyTest.dir/build.make lib/json/CMakeFiles/NightlyTest.dir/build
 .PHONY : NightlyTest/fast
 
 #=============================================================================
@@ -604,7 +422,7 @@ ContinuousMemCheck: cmake_check_build_system
 
 # fast build rule for target.
 ContinuousMemCheck/fast:
-	$(MAKE) -f lib/evpp/test/CMakeFiles/ContinuousMemCheck.dir/build.make lib/evpp/test/CMakeFiles/ContinuousMemCheck.dir/build
+	$(MAKE) -f lib/json/CMakeFiles/ContinuousMemCheck.dir/build.make lib/json/CMakeFiles/ContinuousMemCheck.dir/build
 .PHONY : ContinuousMemCheck/fast
 
 #=============================================================================
@@ -617,7 +435,7 @@ NightlyBuild: cmake_check_build_system
 
 # fast build rule for target.
 NightlyBuild/fast:
-	$(MAKE) -f lib/evpp/test/CMakeFiles/NightlyBuild.dir/build.make lib/evpp/test/CMakeFiles/NightlyBuild.dir/build
+	$(MAKE) -f lib/json/CMakeFiles/NightlyBuild.dir/build.make lib/json/CMakeFiles/NightlyBuild.dir/build
 .PHONY : NightlyBuild/fast
 
 #=============================================================================
@@ -630,21 +448,8 @@ NightlyConfigure: cmake_check_build_system
 
 # fast build rule for target.
 NightlyConfigure/fast:
-	$(MAKE) -f lib/evpp/test/CMakeFiles/NightlyConfigure.dir/build.make lib/evpp/test/CMakeFiles/NightlyConfigure.dir/build
+	$(MAKE) -f lib/json/CMakeFiles/NightlyConfigure.dir/build.make lib/json/CMakeFiles/NightlyConfigure.dir/build
 .PHONY : NightlyConfigure/fast
-
-#=============================================================================
-# Target rules for targets named evpp_unittest_boost_lockfree
-
-# Build rule for target.
-evpp_unittest_boost_lockfree: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 evpp_unittest_boost_lockfree
-.PHONY : evpp_unittest_boost_lockfree
-
-# fast build rule for target.
-evpp_unittest_boost_lockfree/fast:
-	$(MAKE) -f lib/evpp/test/CMakeFiles/evpp_unittest_boost_lockfree.dir/build.make lib/evpp/test/CMakeFiles/evpp_unittest_boost_lockfree.dir/build
-.PHONY : evpp_unittest_boost_lockfree/fast
 
 #=============================================================================
 # Target rules for targets named NightlyUpdate
@@ -656,47 +461,8 @@ NightlyUpdate: cmake_check_build_system
 
 # fast build rule for target.
 NightlyUpdate/fast:
-	$(MAKE) -f lib/evpp/test/CMakeFiles/NightlyUpdate.dir/build.make lib/evpp/test/CMakeFiles/NightlyUpdate.dir/build
+	$(MAKE) -f lib/json/CMakeFiles/NightlyUpdate.dir/build.make lib/json/CMakeFiles/NightlyUpdate.dir/build
 .PHONY : NightlyUpdate/fast
-
-#=============================================================================
-# Target rules for targets named Continuous
-
-# Build rule for target.
-Continuous: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 Continuous
-.PHONY : Continuous
-
-# fast build rule for target.
-Continuous/fast:
-	$(MAKE) -f lib/evpp/test/CMakeFiles/Continuous.dir/build.make lib/evpp/test/CMakeFiles/Continuous.dir/build
-.PHONY : Continuous/fast
-
-#=============================================================================
-# Target rules for targets named evpp_unittest
-
-# Build rule for target.
-evpp_unittest: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 evpp_unittest
-.PHONY : evpp_unittest
-
-# fast build rule for target.
-evpp_unittest/fast:
-	$(MAKE) -f lib/evpp/test/CMakeFiles/evpp_unittest.dir/build.make lib/evpp/test/CMakeFiles/evpp_unittest.dir/build
-.PHONY : evpp_unittest/fast
-
-#=============================================================================
-# Target rules for targets named Experimental
-
-# Build rule for target.
-Experimental: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 Experimental
-.PHONY : Experimental
-
-# fast build rule for target.
-Experimental/fast:
-	$(MAKE) -f lib/evpp/test/CMakeFiles/Experimental.dir/build.make lib/evpp/test/CMakeFiles/Experimental.dir/build
-.PHONY : Experimental/fast
 
 #=============================================================================
 # Target rules for targets named ExperimentalMemCheck
@@ -708,7 +474,7 @@ ExperimentalMemCheck: cmake_check_build_system
 
 # fast build rule for target.
 ExperimentalMemCheck/fast:
-	$(MAKE) -f lib/evpp/test/CMakeFiles/ExperimentalMemCheck.dir/build.make lib/evpp/test/CMakeFiles/ExperimentalMemCheck.dir/build
+	$(MAKE) -f lib/json/CMakeFiles/ExperimentalMemCheck.dir/build.make lib/json/CMakeFiles/ExperimentalMemCheck.dir/build
 .PHONY : ExperimentalMemCheck/fast
 
 #=============================================================================
@@ -721,7 +487,7 @@ ContinuousConfigure: cmake_check_build_system
 
 # fast build rule for target.
 ContinuousConfigure/fast:
-	$(MAKE) -f lib/evpp/test/CMakeFiles/ContinuousConfigure.dir/build.make lib/evpp/test/CMakeFiles/ContinuousConfigure.dir/build
+	$(MAKE) -f lib/json/CMakeFiles/ContinuousConfigure.dir/build.make lib/json/CMakeFiles/ContinuousConfigure.dir/build
 .PHONY : ContinuousConfigure/fast
 
 #=============================================================================
@@ -734,21 +500,8 @@ NightlyMemoryCheck: cmake_check_build_system
 
 # fast build rule for target.
 NightlyMemoryCheck/fast:
-	$(MAKE) -f lib/evpp/test/CMakeFiles/NightlyMemoryCheck.dir/build.make lib/evpp/test/CMakeFiles/NightlyMemoryCheck.dir/build
+	$(MAKE) -f lib/json/CMakeFiles/NightlyMemoryCheck.dir/build.make lib/json/CMakeFiles/NightlyMemoryCheck.dir/build
 .PHONY : NightlyMemoryCheck/fast
-
-#=============================================================================
-# Target rules for targets named NightlyMemCheck
-
-# Build rule for target.
-NightlyMemCheck: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 NightlyMemCheck
-.PHONY : NightlyMemCheck
-
-# fast build rule for target.
-NightlyMemCheck/fast:
-	$(MAKE) -f lib/evpp/test/CMakeFiles/NightlyMemCheck.dir/build.make lib/evpp/test/CMakeFiles/NightlyMemCheck.dir/build
-.PHONY : NightlyMemCheck/fast
 
 #=============================================================================
 # Target rules for targets named NightlyStart
@@ -760,7 +513,7 @@ NightlyStart: cmake_check_build_system
 
 # fast build rule for target.
 NightlyStart/fast:
-	$(MAKE) -f lib/evpp/test/CMakeFiles/NightlyStart.dir/build.make lib/evpp/test/CMakeFiles/NightlyStart.dir/build
+	$(MAKE) -f lib/json/CMakeFiles/NightlyStart.dir/build.make lib/json/CMakeFiles/NightlyStart.dir/build
 .PHONY : NightlyStart/fast
 
 #=============================================================================
@@ -773,944 +526,567 @@ Nightly: cmake_check_build_system
 
 # fast build rule for target.
 Nightly/fast:
-	$(MAKE) -f lib/evpp/test/CMakeFiles/Nightly.dir/build.make lib/evpp/test/CMakeFiles/Nightly.dir/build
+	$(MAKE) -f lib/json/CMakeFiles/Nightly.dir/build.make lib/json/CMakeFiles/Nightly.dir/build
 .PHONY : Nightly/fast
 
 #=============================================================================
-# Target rules for targets named test_evpp_stability
+# Target rules for targets named Continuous
 
 # Build rule for target.
-test_evpp_stability: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 test_evpp_stability
-.PHONY : test_evpp_stability
+Continuous: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Continuous
+.PHONY : Continuous
 
 # fast build rule for target.
-test_evpp_stability/fast:
-	$(MAKE) -f lib/evpp/test/stability/CMakeFiles/test_evpp_stability.dir/build.make lib/evpp/test/stability/CMakeFiles/test_evpp_stability.dir/build
-.PHONY : test_evpp_stability/fast
+Continuous/fast:
+	$(MAKE) -f lib/json/CMakeFiles/Continuous.dir/build.make lib/json/CMakeFiles/Continuous.dir/build
+.PHONY : Continuous/fast
 
 #=============================================================================
-# Target rules for targets named test_evpp_stability_concurrentqueue
+# Target rules for targets named Experimental
 
 # Build rule for target.
-test_evpp_stability_concurrentqueue: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 test_evpp_stability_concurrentqueue
-.PHONY : test_evpp_stability_concurrentqueue
+Experimental: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Experimental
+.PHONY : Experimental
 
 # fast build rule for target.
-test_evpp_stability_concurrentqueue/fast:
-	$(MAKE) -f lib/evpp/test/stability/CMakeFiles/test_evpp_stability_concurrentqueue.dir/build.make lib/evpp/test/stability/CMakeFiles/test_evpp_stability_concurrentqueue.dir/build
-.PHONY : test_evpp_stability_concurrentqueue/fast
+Experimental/fast:
+	$(MAKE) -f lib/json/CMakeFiles/Experimental.dir/build.make lib/json/CMakeFiles/Experimental.dir/build
+.PHONY : Experimental/fast
 
 #=============================================================================
-# Target rules for targets named test_evpp_stability_boost_lockfree
+# Target rules for targets named test-items
 
 # Build rule for target.
-test_evpp_stability_boost_lockfree: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 test_evpp_stability_boost_lockfree
-.PHONY : test_evpp_stability_boost_lockfree
+test-items: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-items
+.PHONY : test-items
 
 # fast build rule for target.
-test_evpp_stability_boost_lockfree/fast:
-	$(MAKE) -f lib/evpp/test/stability/CMakeFiles/test_evpp_stability_boost_lockfree.dir/build.make lib/evpp/test/stability/CMakeFiles/test_evpp_stability_boost_lockfree.dir/build
-.PHONY : test_evpp_stability_boost_lockfree/fast
+test-items/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-items.dir/build.make lib/json/test/CMakeFiles/test-items.dir/build
+.PHONY : test-items/fast
 
 #=============================================================================
-# Target rules for targets named test_evpp_after_fork
+# Target rules for targets named test-class_lexer
 
 # Build rule for target.
-test_evpp_after_fork: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 test_evpp_after_fork
-.PHONY : test_evpp_after_fork
+test-class_lexer: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-class_lexer
+.PHONY : test-class_lexer
 
 # fast build rule for target.
-test_evpp_after_fork/fast:
-	$(MAKE) -f lib/evpp/test/more_tests/fork/CMakeFiles/test_evpp_after_fork.dir/build.make lib/evpp/test/more_tests/fork/CMakeFiles/test_evpp_after_fork.dir/build
-.PHONY : test_evpp_after_fork/fast
+test-class_lexer/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-class_lexer.dir/build.make lib/json/test/CMakeFiles/test-class_lexer.dir/build
+.PHONY : test-class_lexer/fast
 
 #=============================================================================
-# Target rules for targets named example_pingpong_server
+# Target rules for targets named test-unicode
 
 # Build rule for target.
-example_pingpong_server: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_pingpong_server
-.PHONY : example_pingpong_server
+test-unicode: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-unicode
+.PHONY : test-unicode
 
 # fast build rule for target.
-example_pingpong_server/fast:
-	$(MAKE) -f lib/evpp/examples/CMakeFiles/example_pingpong_server.dir/build.make lib/evpp/examples/CMakeFiles/example_pingpong_server.dir/build
-.PHONY : example_pingpong_server/fast
+test-unicode/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-unicode.dir/build.make lib/json/test/CMakeFiles/test-unicode.dir/build
+.PHONY : test-unicode/fast
 
 #=============================================================================
-# Target rules for targets named example_pingpong_client
+# Target rules for targets named test-reference_access
 
 # Build rule for target.
-example_pingpong_client: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_pingpong_client
-.PHONY : example_pingpong_client
+test-reference_access: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-reference_access
+.PHONY : test-reference_access
 
 # fast build rule for target.
-example_pingpong_client/fast:
-	$(MAKE) -f lib/evpp/examples/CMakeFiles/example_pingpong_client.dir/build.make lib/evpp/examples/CMakeFiles/example_pingpong_client.dir/build
-.PHONY : example_pingpong_client/fast
+test-reference_access/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-reference_access.dir/build.make lib/json/test/CMakeFiles/test-reference_access.dir/build
+.PHONY : test-reference_access/fast
 
 #=============================================================================
-# Target rules for targets named example_timer05
+# Target rules for targets named test-udt
 
 # Build rule for target.
-example_timer05: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_timer05
-.PHONY : example_timer05
+test-udt: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-udt
+.PHONY : test-udt
 
 # fast build rule for target.
-example_timer05/fast:
-	$(MAKE) -f lib/evpp/examples/CMakeFiles/example_timer05.dir/build.make lib/evpp/examples/CMakeFiles/example_timer05.dir/build
-.PHONY : example_timer05/fast
+test-udt/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-udt.dir/build.make lib/json/test/CMakeFiles/test-udt.dir/build
+.PHONY : test-udt/fast
 
 #=============================================================================
-# Target rules for targets named example_timer04
+# Target rules for targets named test-iterators2
 
 # Build rule for target.
-example_timer04: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_timer04
-.PHONY : example_timer04
+test-iterators2: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-iterators2
+.PHONY : test-iterators2
 
 # fast build rule for target.
-example_timer04/fast:
-	$(MAKE) -f lib/evpp/examples/CMakeFiles/example_timer04.dir/build.make lib/evpp/examples/CMakeFiles/example_timer04.dir/build
-.PHONY : example_timer04/fast
+test-iterators2/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-iterators2.dir/build.make lib/json/test/CMakeFiles/test-iterators2.dir/build
+.PHONY : test-iterators2/fast
 
 #=============================================================================
-# Target rules for targets named example_timer03
+# Target rules for targets named test-to_chars
 
 # Build rule for target.
-example_timer03: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_timer03
-.PHONY : example_timer03
+test-to_chars: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-to_chars
+.PHONY : test-to_chars
 
 # fast build rule for target.
-example_timer03/fast:
-	$(MAKE) -f lib/evpp/examples/CMakeFiles/example_timer03.dir/build.make lib/evpp/examples/CMakeFiles/example_timer03.dir/build
-.PHONY : example_timer03/fast
+test-to_chars/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-to_chars.dir/build.make lib/json/test/CMakeFiles/test-to_chars.dir/build
+.PHONY : test-to_chars/fast
 
 #=============================================================================
-# Target rules for targets named example_httpecho
+# Target rules for targets named test-pointer_access
 
 # Build rule for target.
-example_httpecho: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_httpecho
-.PHONY : example_httpecho
+test-pointer_access: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-pointer_access
+.PHONY : test-pointer_access
 
 # fast build rule for target.
-example_httpecho/fast:
-	$(MAKE) -f lib/evpp/examples/CMakeFiles/example_httpecho.dir/build.make lib/evpp/examples/CMakeFiles/example_httpecho.dir/build
-.PHONY : example_httpecho/fast
+test-pointer_access/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-pointer_access.dir/build.make lib/json/test/CMakeFiles/test-pointer_access.dir/build
+.PHONY : test-pointer_access/fast
 
 #=============================================================================
-# Target rules for targets named example_twisted_webserver
+# Target rules for targets named test-modifiers
 
 # Build rule for target.
-example_twisted_webserver: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_twisted_webserver
-.PHONY : example_twisted_webserver
+test-modifiers: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-modifiers
+.PHONY : test-modifiers
 
 # fast build rule for target.
-example_twisted_webserver/fast:
-	$(MAKE) -f lib/evpp/examples/CMakeFiles/example_twisted_webserver.dir/build.make lib/evpp/examples/CMakeFiles/example_twisted_webserver.dir/build
-.PHONY : example_twisted_webserver/fast
+test-modifiers/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-modifiers.dir/build.make lib/json/test/CMakeFiles/test-modifiers.dir/build
+.PHONY : test-modifiers/fast
 
 #=============================================================================
-# Target rules for targets named example_twisted_pubsubserver
+# Target rules for targets named test-readme
 
 # Build rule for target.
-example_twisted_pubsubserver: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_twisted_pubsubserver
-.PHONY : example_twisted_pubsubserver
+test-readme: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-readme
+.PHONY : test-readme
 
 # fast build rule for target.
-example_twisted_pubsubserver/fast:
-	$(MAKE) -f lib/evpp/examples/CMakeFiles/example_twisted_pubsubserver.dir/build.make lib/evpp/examples/CMakeFiles/example_twisted_pubsubserver.dir/build
-.PHONY : example_twisted_pubsubserver/fast
+test-readme/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-readme.dir/build.make lib/json/test/CMakeFiles/test-readme.dir/build
+.PHONY : test-readme/fast
 
 #=============================================================================
-# Target rules for targets named example_tcp_server
+# Target rules for targets named test-meta
 
 # Build rule for target.
-example_tcp_server: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_tcp_server
-.PHONY : example_tcp_server
+test-meta: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-meta
+.PHONY : test-meta
 
 # fast build rule for target.
-example_tcp_server/fast:
-	$(MAKE) -f lib/evpp/examples/CMakeFiles/example_tcp_server.dir/build.make lib/evpp/examples/CMakeFiles/example_tcp_server.dir/build
-.PHONY : example_tcp_server/fast
+test-meta/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-meta.dir/build.make lib/json/test/CMakeFiles/test-meta.dir/build
+.PHONY : test-meta/fast
 
 #=============================================================================
-# Target rules for targets named example_signal02
+# Target rules for targets named test-merge_patch
 
 # Build rule for target.
-example_signal02: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_signal02
-.PHONY : example_signal02
+test-merge_patch: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-merge_patch
+.PHONY : test-merge_patch
 
 # fast build rule for target.
-example_signal02/fast:
-	$(MAKE) -f lib/evpp/examples/CMakeFiles/example_signal02.dir/build.make lib/evpp/examples/CMakeFiles/example_signal02.dir/build
-.PHONY : example_signal02/fast
+test-merge_patch/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-merge_patch.dir/build.make lib/json/test/CMakeFiles/test-merge_patch.dir/build
+.PHONY : test-merge_patch/fast
 
 #=============================================================================
-# Target rules for targets named example_dns_resolve
+# Target rules for targets named test-json_pointer
 
 # Build rule for target.
-example_dns_resolve: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_dns_resolve
-.PHONY : example_dns_resolve
+test-json_pointer: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-json_pointer
+.PHONY : test-json_pointer
 
 # fast build rule for target.
-example_dns_resolve/fast:
-	$(MAKE) -f lib/evpp/examples/CMakeFiles/example_dns_resolve.dir/build.make lib/evpp/examples/CMakeFiles/example_dns_resolve.dir/build
-.PHONY : example_dns_resolve/fast
+test-json_pointer/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-json_pointer.dir/build.make lib/json/test/CMakeFiles/test-json_pointer.dir/build
+.PHONY : test-json_pointer/fast
 
 #=============================================================================
-# Target rules for targets named example_tcp_client
+# Target rules for targets named test-concepts
 
 # Build rule for target.
-example_tcp_client: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_tcp_client
-.PHONY : example_tcp_client
+test-concepts: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-concepts
+.PHONY : test-concepts
 
 # fast build rule for target.
-example_tcp_client/fast:
-	$(MAKE) -f lib/evpp/examples/CMakeFiles/example_tcp_client.dir/build.make lib/evpp/examples/CMakeFiles/example_tcp_client.dir/build
-.PHONY : example_tcp_client/fast
+test-concepts/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-concepts.dir/build.make lib/json/test/CMakeFiles/test-concepts.dir/build
+.PHONY : test-concepts/fast
 
 #=============================================================================
-# Target rules for targets named example_timer02
+# Target rules for targets named test-json_patch
 
 # Build rule for target.
-example_timer02: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_timer02
-.PHONY : example_timer02
+test-json_patch: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-json_patch
+.PHONY : test-json_patch
 
 # fast build rule for target.
-example_timer02/fast:
-	$(MAKE) -f lib/evpp/examples/CMakeFiles/example_timer02.dir/build.make lib/evpp/examples/CMakeFiles/example_timer02.dir/build
-.PHONY : example_timer02/fast
+test-json_patch/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-json_patch.dir/build.make lib/json/test/CMakeFiles/test-json_patch.dir/build
+.PHONY : test-json_patch/fast
 
 #=============================================================================
-# Target rules for targets named example_multi_accept
+# Target rules for targets named test-iterators1
 
 # Build rule for target.
-example_multi_accept: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_multi_accept
-.PHONY : example_multi_accept
+test-iterators1: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-iterators1
+.PHONY : test-iterators1
 
 # fast build rule for target.
-example_multi_accept/fast:
-	$(MAKE) -f lib/evpp/examples/CMakeFiles/example_multi_accept.dir/build.make lib/evpp/examples/CMakeFiles/example_multi_accept.dir/build
-.PHONY : example_multi_accept/fast
+test-iterators1/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-iterators1.dir/build.make lib/json/test/CMakeFiles/test-iterators1.dir/build
+.PHONY : test-iterators1/fast
 
 #=============================================================================
-# Target rules for targets named example_udpecho
+# Target rules for targets named test-wstring
 
 # Build rule for target.
-example_udpecho: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_udpecho
-.PHONY : example_udpecho
+test-wstring: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-wstring
+.PHONY : test-wstring
 
 # fast build rule for target.
-example_udpecho/fast:
-	$(MAKE) -f lib/evpp/examples/CMakeFiles/example_udpecho.dir/build.make lib/evpp/examples/CMakeFiles/example_udpecho.dir/build
-.PHONY : example_udpecho/fast
+test-wstring/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-wstring.dir/build.make lib/json/test/CMakeFiles/test-wstring.dir/build
+.PHONY : test-wstring/fast
 
 #=============================================================================
-# Target rules for targets named example_signal01
+# Target rules for targets named test-testsuites
 
 # Build rule for target.
-example_signal01: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_signal01
-.PHONY : example_signal01
+test-testsuites: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-testsuites
+.PHONY : test-testsuites
 
 # fast build rule for target.
-example_signal01/fast:
-	$(MAKE) -f lib/evpp/examples/CMakeFiles/example_signal01.dir/build.make lib/evpp/examples/CMakeFiles/example_signal01.dir/build
-.PHONY : example_signal01/fast
+test-testsuites/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-testsuites.dir/build.make lib/json/test/CMakeFiles/test-testsuites.dir/build
+.PHONY : test-testsuites/fast
 
 #=============================================================================
-# Target rules for targets named example_timer01
+# Target rules for targets named test-constructor2
 
 # Build rule for target.
-example_timer01: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_timer01
-.PHONY : example_timer01
+test-constructor2: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-constructor2
+.PHONY : test-constructor2
 
 # fast build rule for target.
-example_timer01/fast:
-	$(MAKE) -f lib/evpp/examples/CMakeFiles/example_timer01.dir/build.make lib/evpp/examples/CMakeFiles/example_timer01.dir/build
-.PHONY : example_timer01/fast
+test-constructor2/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-constructor2.dir/build.make lib/json/test/CMakeFiles/test-constructor2.dir/build
+.PHONY : test-constructor2/fast
 
 #=============================================================================
-# Target rules for targets named example_tcpecho
+# Target rules for targets named test-deserialization
 
 # Build rule for target.
-example_tcpecho: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_tcpecho
-.PHONY : example_tcpecho
+test-deserialization: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-deserialization
+.PHONY : test-deserialization
 
 # fast build rule for target.
-example_tcpecho/fast:
-	$(MAKE) -f lib/evpp/examples/CMakeFiles/example_tcpecho.dir/build.make lib/evpp/examples/CMakeFiles/example_tcpecho.dir/build
-.PHONY : example_tcpecho/fast
+test-deserialization/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-deserialization.dir/build.make lib/json/test/CMakeFiles/test-deserialization.dir/build
+.PHONY : test-deserialization/fast
 
 #=============================================================================
-# Target rules for targets named example_evnsq_producer
+# Target rules for targets named test-cbor
 
 # Build rule for target.
-example_evnsq_producer: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_evnsq_producer
-.PHONY : example_evnsq_producer
+test-cbor: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-cbor
+.PHONY : test-cbor
 
 # fast build rule for target.
-example_evnsq_producer/fast:
-	$(MAKE) -f lib/evpp/examples/apps/evnsq/CMakeFiles/example_evnsq_producer.dir/build.make lib/evpp/examples/apps/evnsq/CMakeFiles/example_evnsq_producer.dir/build
-.PHONY : example_evnsq_producer/fast
+test-cbor/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-cbor.dir/build.make lib/json/test/CMakeFiles/test-cbor.dir/build
+.PHONY : test-cbor/fast
 
 #=============================================================================
-# Target rules for targets named example_evnsq_tail
+# Target rules for targets named test-inspection
 
 # Build rule for target.
-example_evnsq_tail: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_evnsq_tail
-.PHONY : example_evnsq_tail
+test-inspection: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-inspection
+.PHONY : test-inspection
 
 # fast build rule for target.
-example_evnsq_tail/fast:
-	$(MAKE) -f lib/evpp/examples/apps/evnsq/CMakeFiles/example_evnsq_tail.dir/build.make lib/evpp/examples/apps/evnsq/CMakeFiles/example_evnsq_tail.dir/build
-.PHONY : example_evnsq_tail/fast
+test-inspection/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-inspection.dir/build.make lib/json/test/CMakeFiles/test-inspection.dir/build
+.PHONY : test-inspection/fast
 
 #=============================================================================
-# Target rules for targets named example_chatroom_simple_client
+# Target rules for targets named test-class_const_iterator
 
 # Build rule for target.
-example_chatroom_simple_client: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_chatroom_simple_client
-.PHONY : example_chatroom_simple_client
+test-class_const_iterator: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-class_const_iterator
+.PHONY : test-class_const_iterator
 
 # fast build rule for target.
-example_chatroom_simple_client/fast:
-	$(MAKE) -f lib/evpp/examples/chatroom/simple/CMakeFiles/example_chatroom_simple_client.dir/build.make lib/evpp/examples/chatroom/simple/CMakeFiles/example_chatroom_simple_client.dir/build
-.PHONY : example_chatroom_simple_client/fast
+test-class_const_iterator/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-class_const_iterator.dir/build.make lib/json/test/CMakeFiles/test-class_const_iterator.dir/build
+.PHONY : test-class_const_iterator/fast
 
 #=============================================================================
-# Target rules for targets named example_chatroom_simple_server
+# Target rules for targets named test-class_parser
 
 # Build rule for target.
-example_chatroom_simple_server: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_chatroom_simple_server
-.PHONY : example_chatroom_simple_server
+test-class_parser: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-class_parser
+.PHONY : test-class_parser
 
 # fast build rule for target.
-example_chatroom_simple_server/fast:
-	$(MAKE) -f lib/evpp/examples/chatroom/simple/CMakeFiles/example_chatroom_simple_server.dir/build.make lib/evpp/examples/chatroom/simple/CMakeFiles/example_chatroom_simple_server.dir/build
-.PHONY : example_chatroom_simple_server/fast
+test-class_parser/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-class_parser.dir/build.make lib/json/test/CMakeFiles/test-class_parser.dir/build
+.PHONY : test-class_parser/fast
 
 #=============================================================================
-# Target rules for targets named example_recipes_self_control_timer_basic_01
+# Target rules for targets named test-element_access1
 
 # Build rule for target.
-example_recipes_self_control_timer_basic_01: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_recipes_self_control_timer_basic_01
-.PHONY : example_recipes_self_control_timer_basic_01
+test-element_access1: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-element_access1
+.PHONY : test-element_access1
 
 # fast build rule for target.
-example_recipes_self_control_timer_basic_01/fast:
-	$(MAKE) -f lib/evpp/examples/recipes/self_control_timer/basic_01/CMakeFiles/example_recipes_self_control_timer_basic_01.dir/build.make lib/evpp/examples/recipes/self_control_timer/basic_01/CMakeFiles/example_recipes_self_control_timer_basic_01.dir/build
-.PHONY : example_recipes_self_control_timer_basic_01/fast
+test-element_access1/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-element_access1.dir/build.make lib/json/test/CMakeFiles/test-element_access1.dir/build
+.PHONY : test-element_access1/fast
 
 #=============================================================================
-# Target rules for targets named example_recipes_self_control_timer_basic_02
+# Target rules for targets named test-ubjson
 
 # Build rule for target.
-example_recipes_self_control_timer_basic_02: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_recipes_self_control_timer_basic_02
-.PHONY : example_recipes_self_control_timer_basic_02
+test-ubjson: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-ubjson
+.PHONY : test-ubjson
 
 # fast build rule for target.
-example_recipes_self_control_timer_basic_02/fast:
-	$(MAKE) -f lib/evpp/examples/recipes/self_control_timer/basic_02/CMakeFiles/example_recipes_self_control_timer_basic_02.dir/build.make lib/evpp/examples/recipes/self_control_timer/basic_02/CMakeFiles/example_recipes_self_control_timer_basic_02.dir/build
-.PHONY : example_recipes_self_control_timer_basic_02/fast
+test-ubjson/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-ubjson.dir/build.make lib/json/test/CMakeFiles/test-ubjson.dir/build
+.PHONY : test-ubjson/fast
 
 #=============================================================================
-# Target rules for targets named example_recipes_self_control_timer_cancel_03
+# Target rules for targets named test-noexcept
 
 # Build rule for target.
-example_recipes_self_control_timer_cancel_03: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_recipes_self_control_timer_cancel_03
-.PHONY : example_recipes_self_control_timer_cancel_03
+test-noexcept: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-noexcept
+.PHONY : test-noexcept
 
 # fast build rule for target.
-example_recipes_self_control_timer_cancel_03/fast:
-	$(MAKE) -f lib/evpp/examples/recipes/self_control_timer/cancel_03/CMakeFiles/example_recipes_self_control_timer_cancel_03.dir/build.make lib/evpp/examples/recipes/self_control_timer/cancel_03/CMakeFiles/example_recipes_self_control_timer_cancel_03.dir/build
-.PHONY : example_recipes_self_control_timer_cancel_03/fast
+test-noexcept/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-noexcept.dir/build.make lib/json/test/CMakeFiles/test-noexcept.dir/build
+.PHONY : test-noexcept/fast
 
 #=============================================================================
-# Target rules for targets named example_recipes_self_control_timer_periodic_04
+# Target rules for targets named test-serialization
 
 # Build rule for target.
-example_recipes_self_control_timer_periodic_04: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_recipes_self_control_timer_periodic_04
-.PHONY : example_recipes_self_control_timer_periodic_04
+test-serialization: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-serialization
+.PHONY : test-serialization
 
 # fast build rule for target.
-example_recipes_self_control_timer_periodic_04/fast:
-	$(MAKE) -f lib/evpp/examples/recipes/self_control_timer/periodic_04/CMakeFiles/example_recipes_self_control_timer_periodic_04.dir/build.make lib/evpp/examples/recipes/self_control_timer/periodic_04/CMakeFiles/example_recipes_self_control_timer_periodic_04.dir/build
-.PHONY : example_recipes_self_control_timer_periodic_04/fast
+test-serialization/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-serialization.dir/build.make lib/json/test/CMakeFiles/test-serialization.dir/build
+.PHONY : test-serialization/fast
 
 #=============================================================================
-# Target rules for targets named example_http_client_request01
+# Target rules for targets named test-element_access2
 
 # Build rule for target.
-example_http_client_request01: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_http_client_request01
-.PHONY : example_http_client_request01
+test-element_access2: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-element_access2
+.PHONY : test-element_access2
 
 # fast build rule for target.
-example_http_client_request01/fast:
-	$(MAKE) -f lib/evpp/examples/http/http_client_request/CMakeFiles/example_http_client_request01.dir/build.make lib/evpp/examples/http/http_client_request/CMakeFiles/example_http_client_request01.dir/build
-.PHONY : example_http_client_request01/fast
+test-element_access2/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-element_access2.dir/build.make lib/json/test/CMakeFiles/test-element_access2.dir/build
+.PHONY : test-element_access2/fast
 
 #=============================================================================
-# Target rules for targets named example_http_client_request05
+# Target rules for targets named test-class_iterator
 
 # Build rule for target.
-example_http_client_request05: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_http_client_request05
-.PHONY : example_http_client_request05
+test-class_iterator: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-class_iterator
+.PHONY : test-class_iterator
 
 # fast build rule for target.
-example_http_client_request05/fast:
-	$(MAKE) -f lib/evpp/examples/http/http_client_request/CMakeFiles/example_http_client_request05.dir/build.make lib/evpp/examples/http/http_client_request/CMakeFiles/example_http_client_request05.dir/build
-.PHONY : example_http_client_request05/fast
+test-class_iterator/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-class_iterator.dir/build.make lib/json/test/CMakeFiles/test-class_iterator.dir/build
+.PHONY : test-class_iterator/fast
 
 #=============================================================================
-# Target rules for targets named example_http_client_request02
+# Target rules for targets named test-allocator
 
 # Build rule for target.
-example_http_client_request02: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_http_client_request02
-.PHONY : example_http_client_request02
+test-allocator: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-allocator
+.PHONY : test-allocator
 
 # fast build rule for target.
-example_http_client_request02/fast:
-	$(MAKE) -f lib/evpp/examples/http/http_client_request/CMakeFiles/example_http_client_request02.dir/build.make lib/evpp/examples/http/http_client_request/CMakeFiles/example_http_client_request02.dir/build
-.PHONY : example_http_client_request02/fast
+test-allocator/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-allocator.dir/build.make lib/json/test/CMakeFiles/test-allocator.dir/build
+.PHONY : test-allocator/fast
 
 #=============================================================================
-# Target rules for targets named example_http_client_request03
+# Target rules for targets named test-alt-string
 
 # Build rule for target.
-example_http_client_request03: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_http_client_request03
-.PHONY : example_http_client_request03
+test-alt-string: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-alt-string
+.PHONY : test-alt-string
 
 # fast build rule for target.
-example_http_client_request03/fast:
-	$(MAKE) -f lib/evpp/examples/http/http_client_request/CMakeFiles/example_http_client_request03.dir/build.make lib/evpp/examples/http/http_client_request/CMakeFiles/example_http_client_request03.dir/build
-.PHONY : example_http_client_request03/fast
+test-alt-string/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-alt-string.dir/build.make lib/json/test/CMakeFiles/test-alt-string.dir/build
+.PHONY : test-alt-string/fast
 
 #=============================================================================
-# Target rules for targets named example_http_client_request04
+# Target rules for targets named test-conversions
 
 # Build rule for target.
-example_http_client_request04: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_http_client_request04
-.PHONY : example_http_client_request04
+test-conversions: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-conversions
+.PHONY : test-conversions
 
 # fast build rule for target.
-example_http_client_request04/fast:
-	$(MAKE) -f lib/evpp/examples/http/http_client_request/CMakeFiles/example_http_client_request04.dir/build.make lib/evpp/examples/http/http_client_request/CMakeFiles/example_http_client_request04.dir/build
-.PHONY : example_http_client_request04/fast
+test-conversions/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-conversions.dir/build.make lib/json/test/CMakeFiles/test-conversions.dir/build
+.PHONY : test-conversions/fast
 
 #=============================================================================
-# Target rules for targets named example_http_simple_proxy
+# Target rules for targets named test-regression
 
 # Build rule for target.
-example_http_simple_proxy: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_http_simple_proxy
-.PHONY : example_http_simple_proxy
+test-regression: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-regression
+.PHONY : test-regression
 
 # fast build rule for target.
-example_http_simple_proxy/fast:
-	$(MAKE) -f lib/evpp/examples/http/simple_proxy/CMakeFiles/example_http_simple_proxy.dir/build.make lib/evpp/examples/http/simple_proxy/CMakeFiles/example_http_simple_proxy.dir/build
-.PHONY : example_http_simple_proxy/fast
+test-regression/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-regression.dir/build.make lib/json/test/CMakeFiles/test-regression.dir/build
+.PHONY : test-regression/fast
 
 #=============================================================================
-# Target rules for targets named example_c10m01
+# Target rules for targets named test-constructor1
 
 # Build rule for target.
-example_c10m01: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_c10m01
-.PHONY : example_c10m01
+test-constructor1: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-constructor1
+.PHONY : test-constructor1
 
 # fast build rule for target.
-example_c10m01/fast:
-	$(MAKE) -f lib/evpp/examples/c10m/c10m01/CMakeFiles/example_c10m01.dir/build.make lib/evpp/examples/c10m/c10m01/CMakeFiles/example_c10m01.dir/build
-.PHONY : example_c10m01/fast
+test-constructor1/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-constructor1.dir/build.make lib/json/test/CMakeFiles/test-constructor1.dir/build
+.PHONY : test-constructor1/fast
 
 #=============================================================================
-# Target rules for targets named example_c10m_client
+# Target rules for targets named test-capacity
 
 # Build rule for target.
-example_c10m_client: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 example_c10m_client
-.PHONY : example_c10m_client
+test-capacity: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-capacity
+.PHONY : test-capacity
 
 # fast build rule for target.
-example_c10m_client/fast:
-	$(MAKE) -f lib/evpp/examples/c10m/client/CMakeFiles/example_c10m_client.dir/build.make lib/evpp/examples/c10m/client/CMakeFiles/example_c10m_client.dir/build
-.PHONY : example_c10m_client/fast
+test-capacity/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-capacity.dir/build.make lib/json/test/CMakeFiles/test-capacity.dir/build
+.PHONY : test-capacity/fast
 
 #=============================================================================
-# Target rules for targets named benchmark_tcp_asio_server
+# Target rules for targets named catch_main
 
 # Build rule for target.
-benchmark_tcp_asio_server: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_tcp_asio_server
-.PHONY : benchmark_tcp_asio_server
+catch_main: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 catch_main
+.PHONY : catch_main
 
 # fast build rule for target.
-benchmark_tcp_asio_server/fast:
-	$(MAKE) -f lib/evpp/benchmark/throughput/asio_from_chenshuo/CMakeFiles/benchmark_tcp_asio_server.dir/build.make lib/evpp/benchmark/throughput/asio_from_chenshuo/CMakeFiles/benchmark_tcp_asio_server.dir/build
-.PHONY : benchmark_tcp_asio_server/fast
+catch_main/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/catch_main.dir/build.make lib/json/test/CMakeFiles/catch_main.dir/build
+.PHONY : catch_main/fast
 
 #=============================================================================
-# Target rules for targets named benchmark_tcp_asio_client
+# Target rules for targets named test-convenience
 
 # Build rule for target.
-benchmark_tcp_asio_client: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_tcp_asio_client
-.PHONY : benchmark_tcp_asio_client
+test-convenience: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-convenience
+.PHONY : test-convenience
 
 # fast build rule for target.
-benchmark_tcp_asio_client/fast:
-	$(MAKE) -f lib/evpp/benchmark/throughput/asio_from_chenshuo/CMakeFiles/benchmark_tcp_asio_client.dir/build.make lib/evpp/benchmark/throughput/asio_from_chenshuo/CMakeFiles/benchmark_tcp_asio_client.dir/build
-.PHONY : benchmark_tcp_asio_client/fast
+test-convenience/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-convenience.dir/build.make lib/json/test/CMakeFiles/test-convenience.dir/build
+.PHONY : test-convenience/fast
 
 #=============================================================================
-# Target rules for targets named benchmark_tcp_libevent_server
+# Target rules for targets named test-comparison
 
 # Build rule for target.
-benchmark_tcp_libevent_server: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_tcp_libevent_server
-.PHONY : benchmark_tcp_libevent_server
+test-comparison: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-comparison
+.PHONY : test-comparison
 
 # fast build rule for target.
-benchmark_tcp_libevent_server/fast:
-	$(MAKE) -f lib/evpp/benchmark/throughput/libevent/CMakeFiles/benchmark_tcp_libevent_server.dir/build.make lib/evpp/benchmark/throughput/libevent/CMakeFiles/benchmark_tcp_libevent_server.dir/build
-.PHONY : benchmark_tcp_libevent_server/fast
+test-comparison/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-comparison.dir/build.make lib/json/test/CMakeFiles/test-comparison.dir/build
+.PHONY : test-comparison/fast
 
 #=============================================================================
-# Target rules for targets named benchmark_tcp_libevent_client
+# Target rules for targets named test-algorithms
 
 # Build rule for target.
-benchmark_tcp_libevent_client: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_tcp_libevent_client
-.PHONY : benchmark_tcp_libevent_client
+test-algorithms: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-algorithms
+.PHONY : test-algorithms
 
 # fast build rule for target.
-benchmark_tcp_libevent_client/fast:
-	$(MAKE) -f lib/evpp/benchmark/throughput/libevent/CMakeFiles/benchmark_tcp_libevent_client.dir/build.make lib/evpp/benchmark/throughput/libevent/CMakeFiles/benchmark_tcp_libevent_client.dir/build
-.PHONY : benchmark_tcp_libevent_client/fast
+test-algorithms/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-algorithms.dir/build.make lib/json/test/CMakeFiles/test-algorithms.dir/build
+.PHONY : test-algorithms/fast
 
 #=============================================================================
-# Target rules for targets named benchmark_pingpong_server
+# Target rules for targets named test-msgpack
 
 # Build rule for target.
-benchmark_pingpong_server: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_pingpong_server
-.PHONY : benchmark_pingpong_server
+test-msgpack: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-msgpack
+.PHONY : test-msgpack
 
 # fast build rule for target.
-benchmark_pingpong_server/fast:
-	$(MAKE) -f lib/evpp/benchmark/throughput/evpp/CMakeFiles/benchmark_pingpong_server.dir/build.make lib/evpp/benchmark/throughput/evpp/CMakeFiles/benchmark_pingpong_server.dir/build
-.PHONY : benchmark_pingpong_server/fast
-
-#=============================================================================
-# Target rules for targets named benchmark_pingpong_client_fixed_size
-
-# Build rule for target.
-benchmark_pingpong_client_fixed_size: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_pingpong_client_fixed_size
-.PHONY : benchmark_pingpong_client_fixed_size
-
-# fast build rule for target.
-benchmark_pingpong_client_fixed_size/fast:
-	$(MAKE) -f lib/evpp/benchmark/throughput/evpp/CMakeFiles/benchmark_pingpong_client_fixed_size.dir/build.make lib/evpp/benchmark/throughput/evpp/CMakeFiles/benchmark_pingpong_client_fixed_size.dir/build
-.PHONY : benchmark_pingpong_client_fixed_size/fast
-
-#=============================================================================
-# Target rules for targets named benchmark_pingpong_client
-
-# Build rule for target.
-benchmark_pingpong_client: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_pingpong_client
-.PHONY : benchmark_pingpong_client
-
-# fast build rule for target.
-benchmark_pingpong_client/fast:
-	$(MAKE) -f lib/evpp/benchmark/throughput/evpp/CMakeFiles/benchmark_pingpong_client.dir/build.make lib/evpp/benchmark/throughput/evpp/CMakeFiles/benchmark_pingpong_client.dir/build
-.PHONY : benchmark_pingpong_client/fast
-
-#=============================================================================
-# Target rules for targets named benchmark_gettimeofday
-
-# Build rule for target.
-benchmark_gettimeofday: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_gettimeofday
-.PHONY : benchmark_gettimeofday
-
-# fast build rule for target.
-benchmark_gettimeofday/fast:
-	$(MAKE) -f lib/evpp/benchmark/gettimeofday/CMakeFiles/benchmark_gettimeofday.dir/build.make lib/evpp/benchmark/gettimeofday/CMakeFiles/benchmark_gettimeofday.dir/build
-.PHONY : benchmark_gettimeofday/fast
-
-#=============================================================================
-# Target rules for targets named benchmark_http_libevent
-
-# Build rule for target.
-benchmark_http_libevent: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_http_libevent
-.PHONY : benchmark_http_libevent
-
-# fast build rule for target.
-benchmark_http_libevent/fast:
-	$(MAKE) -f lib/evpp/benchmark/http/libevent/CMakeFiles/benchmark_http_libevent.dir/build.make lib/evpp/benchmark/http/libevent/CMakeFiles/benchmark_http_libevent.dir/build
-.PHONY : benchmark_http_libevent/fast
-
-#=============================================================================
-# Target rules for targets named benchmark_http_evpp
-
-# Build rule for target.
-benchmark_http_evpp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_http_evpp
-.PHONY : benchmark_http_evpp
-
-# fast build rule for target.
-benchmark_http_evpp/fast:
-	$(MAKE) -f lib/evpp/benchmark/http/evpp/CMakeFiles/benchmark_http_evpp.dir/build.make lib/evpp/benchmark/http/evpp/CMakeFiles/benchmark_http_evpp.dir/build
-.PHONY : benchmark_http_evpp/fast
-
-#=============================================================================
-# Target rules for targets named benchmark_ioevent_libevent
-
-# Build rule for target.
-benchmark_ioevent_libevent: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_ioevent_libevent
-.PHONY : benchmark_ioevent_libevent
-
-# fast build rule for target.
-benchmark_ioevent_libevent/fast:
-	$(MAKE) -f lib/evpp/benchmark/ioevent/libevent/CMakeFiles/benchmark_ioevent_libevent.dir/build.make lib/evpp/benchmark/ioevent/libevent/CMakeFiles/benchmark_ioevent_libevent.dir/build
-.PHONY : benchmark_ioevent_libevent/fast
-
-#=============================================================================
-# Target rules for targets named benchmark_ioevent_evpp_pipe_watcher
-
-# Build rule for target.
-benchmark_ioevent_evpp_pipe_watcher: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_ioevent_evpp_pipe_watcher
-.PHONY : benchmark_ioevent_evpp_pipe_watcher
-
-# fast build rule for target.
-benchmark_ioevent_evpp_pipe_watcher/fast:
-	$(MAKE) -f lib/evpp/benchmark/ioevent/evpp/CMakeFiles/benchmark_ioevent_evpp_pipe_watcher.dir/build.make lib/evpp/benchmark/ioevent/evpp/CMakeFiles/benchmark_ioevent_evpp_pipe_watcher.dir/build
-.PHONY : benchmark_ioevent_evpp_pipe_watcher/fast
-
-#=============================================================================
-# Target rules for targets named benchmark_ioevent_evpp
-
-# Build rule for target.
-benchmark_ioevent_evpp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_ioevent_evpp
-.PHONY : benchmark_ioevent_evpp
-
-# fast build rule for target.
-benchmark_ioevent_evpp/fast:
-	$(MAKE) -f lib/evpp/benchmark/ioevent/evpp/CMakeFiles/benchmark_ioevent_evpp.dir/build.make lib/evpp/benchmark/ioevent/evpp/CMakeFiles/benchmark_ioevent_evpp.dir/build
-.PHONY : benchmark_ioevent_evpp/fast
-
-#=============================================================================
-# Target rules for targets named benchmark_fd_channel_vs_pipe_event_watcher
-
-# Build rule for target.
-benchmark_fd_channel_vs_pipe_event_watcher: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_fd_channel_vs_pipe_event_watcher
-.PHONY : benchmark_fd_channel_vs_pipe_event_watcher
-
-# fast build rule for target.
-benchmark_fd_channel_vs_pipe_event_watcher/fast:
-	$(MAKE) -f lib/evpp/benchmark/ioevent/fd_channel_vs_pipe_event_watcher/CMakeFiles/benchmark_fd_channel_vs_pipe_event_watcher.dir/build.make lib/evpp/benchmark/ioevent/fd_channel_vs_pipe_event_watcher/CMakeFiles/benchmark_fd_channel_vs_pipe_event_watcher.dir/build
-.PHONY : benchmark_fd_channel_vs_pipe_event_watcher/fast
-
-#=============================================================================
-# Target rules for targets named benchmark_post_task_concurrentqueue5
-
-# Build rule for target.
-benchmark_post_task_concurrentqueue5: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_post_task_concurrentqueue5
-.PHONY : benchmark_post_task_concurrentqueue5
-
-# fast build rule for target.
-benchmark_post_task_concurrentqueue5/fast:
-	$(MAKE) -f lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task_concurrentqueue5.dir/build.make lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task_concurrentqueue5.dir/build
-.PHONY : benchmark_post_task_concurrentqueue5/fast
-
-#=============================================================================
-# Target rules for targets named benchmark_post_task_concurrentqueue4
-
-# Build rule for target.
-benchmark_post_task_concurrentqueue4: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_post_task_concurrentqueue4
-.PHONY : benchmark_post_task_concurrentqueue4
-
-# fast build rule for target.
-benchmark_post_task_concurrentqueue4/fast:
-	$(MAKE) -f lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task_concurrentqueue4.dir/build.make lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task_concurrentqueue4.dir/build
-.PHONY : benchmark_post_task_concurrentqueue4/fast
-
-#=============================================================================
-# Target rules for targets named benchmark_post_task_concurrentqueue3
-
-# Build rule for target.
-benchmark_post_task_concurrentqueue3: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_post_task_concurrentqueue3
-.PHONY : benchmark_post_task_concurrentqueue3
-
-# fast build rule for target.
-benchmark_post_task_concurrentqueue3/fast:
-	$(MAKE) -f lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task_concurrentqueue3.dir/build.make lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task_concurrentqueue3.dir/build
-.PHONY : benchmark_post_task_concurrentqueue3/fast
-
-#=============================================================================
-# Target rules for targets named benchmark_post_task_boost_lockfree_queue5
-
-# Build rule for target.
-benchmark_post_task_boost_lockfree_queue5: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_post_task_boost_lockfree_queue5
-.PHONY : benchmark_post_task_boost_lockfree_queue5
-
-# fast build rule for target.
-benchmark_post_task_boost_lockfree_queue5/fast:
-	$(MAKE) -f lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task_boost_lockfree_queue5.dir/build.make lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task_boost_lockfree_queue5.dir/build
-.PHONY : benchmark_post_task_boost_lockfree_queue5/fast
-
-#=============================================================================
-# Target rules for targets named benchmark_post_task3
-
-# Build rule for target.
-benchmark_post_task3: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_post_task3
-.PHONY : benchmark_post_task3
-
-# fast build rule for target.
-benchmark_post_task3/fast:
-	$(MAKE) -f lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task3.dir/build.make lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task3.dir/build
-.PHONY : benchmark_post_task3/fast
-
-#=============================================================================
-# Target rules for targets named benchmark_post_task_boost_lockfree_queue3
-
-# Build rule for target.
-benchmark_post_task_boost_lockfree_queue3: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_post_task_boost_lockfree_queue3
-.PHONY : benchmark_post_task_boost_lockfree_queue3
-
-# fast build rule for target.
-benchmark_post_task_boost_lockfree_queue3/fast:
-	$(MAKE) -f lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task_boost_lockfree_queue3.dir/build.make lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task_boost_lockfree_queue3.dir/build
-.PHONY : benchmark_post_task_boost_lockfree_queue3/fast
-
-#=============================================================================
-# Target rules for targets named benchmark_post_task_boost_lockfree_queue2
-
-# Build rule for target.
-benchmark_post_task_boost_lockfree_queue2: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_post_task_boost_lockfree_queue2
-.PHONY : benchmark_post_task_boost_lockfree_queue2
-
-# fast build rule for target.
-benchmark_post_task_boost_lockfree_queue2/fast:
-	$(MAKE) -f lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task_boost_lockfree_queue2.dir/build.make lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task_boost_lockfree_queue2.dir/build
-.PHONY : benchmark_post_task_boost_lockfree_queue2/fast
-
-#=============================================================================
-# Target rules for targets named benchmark_post_task_boost_lockfree_queue1
-
-# Build rule for target.
-benchmark_post_task_boost_lockfree_queue1: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_post_task_boost_lockfree_queue1
-.PHONY : benchmark_post_task_boost_lockfree_queue1
-
-# fast build rule for target.
-benchmark_post_task_boost_lockfree_queue1/fast:
-	$(MAKE) -f lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task_boost_lockfree_queue1.dir/build.make lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task_boost_lockfree_queue1.dir/build
-.PHONY : benchmark_post_task_boost_lockfree_queue1/fast
-
-#=============================================================================
-# Target rules for targets named benchmark_post_task_concurrentqueue1
-
-# Build rule for target.
-benchmark_post_task_concurrentqueue1: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_post_task_concurrentqueue1
-.PHONY : benchmark_post_task_concurrentqueue1
-
-# fast build rule for target.
-benchmark_post_task_concurrentqueue1/fast:
-	$(MAKE) -f lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task_concurrentqueue1.dir/build.make lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task_concurrentqueue1.dir/build
-.PHONY : benchmark_post_task_concurrentqueue1/fast
-
-#=============================================================================
-# Target rules for targets named benchmark_post_task4
-
-# Build rule for target.
-benchmark_post_task4: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_post_task4
-.PHONY : benchmark_post_task4
-
-# fast build rule for target.
-benchmark_post_task4/fast:
-	$(MAKE) -f lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task4.dir/build.make lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task4.dir/build
-.PHONY : benchmark_post_task4/fast
-
-#=============================================================================
-# Target rules for targets named benchmark_post_task2
-
-# Build rule for target.
-benchmark_post_task2: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_post_task2
-.PHONY : benchmark_post_task2
-
-# fast build rule for target.
-benchmark_post_task2/fast:
-	$(MAKE) -f lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task2.dir/build.make lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task2.dir/build
-.PHONY : benchmark_post_task2/fast
-
-#=============================================================================
-# Target rules for targets named benchmark_post_task_concurrentqueue6
-
-# Build rule for target.
-benchmark_post_task_concurrentqueue6: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_post_task_concurrentqueue6
-.PHONY : benchmark_post_task_concurrentqueue6
-
-# fast build rule for target.
-benchmark_post_task_concurrentqueue6/fast:
-	$(MAKE) -f lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task_concurrentqueue6.dir/build.make lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task_concurrentqueue6.dir/build
-.PHONY : benchmark_post_task_concurrentqueue6/fast
-
-#=============================================================================
-# Target rules for targets named benchmark_post_task_concurrentqueue2
-
-# Build rule for target.
-benchmark_post_task_concurrentqueue2: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_post_task_concurrentqueue2
-.PHONY : benchmark_post_task_concurrentqueue2
-
-# fast build rule for target.
-benchmark_post_task_concurrentqueue2/fast:
-	$(MAKE) -f lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task_concurrentqueue2.dir/build.make lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task_concurrentqueue2.dir/build
-.PHONY : benchmark_post_task_concurrentqueue2/fast
-
-#=============================================================================
-# Target rules for targets named benchmark_post_task_boost_lockfree_queue6
-
-# Build rule for target.
-benchmark_post_task_boost_lockfree_queue6: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_post_task_boost_lockfree_queue6
-.PHONY : benchmark_post_task_boost_lockfree_queue6
-
-# fast build rule for target.
-benchmark_post_task_boost_lockfree_queue6/fast:
-	$(MAKE) -f lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task_boost_lockfree_queue6.dir/build.make lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task_boost_lockfree_queue6.dir/build
-.PHONY : benchmark_post_task_boost_lockfree_queue6/fast
-
-#=============================================================================
-# Target rules for targets named benchmark_post_task5
-
-# Build rule for target.
-benchmark_post_task5: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_post_task5
-.PHONY : benchmark_post_task5
-
-# fast build rule for target.
-benchmark_post_task5/fast:
-	$(MAKE) -f lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task5.dir/build.make lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task5.dir/build
-.PHONY : benchmark_post_task5/fast
-
-#=============================================================================
-# Target rules for targets named benchmark_post_task6
-
-# Build rule for target.
-benchmark_post_task6: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_post_task6
-.PHONY : benchmark_post_task6
-
-# fast build rule for target.
-benchmark_post_task6/fast:
-	$(MAKE) -f lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task6.dir/build.make lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task6.dir/build
-.PHONY : benchmark_post_task6/fast
-
-#=============================================================================
-# Target rules for targets named benchmark_post_task_boost_lockfree_queue4
-
-# Build rule for target.
-benchmark_post_task_boost_lockfree_queue4: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_post_task_boost_lockfree_queue4
-.PHONY : benchmark_post_task_boost_lockfree_queue4
-
-# fast build rule for target.
-benchmark_post_task_boost_lockfree_queue4/fast:
-	$(MAKE) -f lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task_boost_lockfree_queue4.dir/build.make lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task_boost_lockfree_queue4.dir/build
-.PHONY : benchmark_post_task_boost_lockfree_queue4/fast
-
-#=============================================================================
-# Target rules for targets named benchmark_post_task1
-
-# Build rule for target.
-benchmark_post_task1: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_post_task1
-.PHONY : benchmark_post_task1
-
-# fast build rule for target.
-benchmark_post_task1/fast:
-	$(MAKE) -f lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task1.dir/build.make lib/evpp/benchmark/post_task/CMakeFiles/benchmark_post_task1.dir/build
-.PHONY : benchmark_post_task1/fast
-
-#=============================================================================
-# Target rules for targets named benchmark_pingpong_header_body_client
-
-# Build rule for target.
-benchmark_pingpong_header_body_client: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_pingpong_header_body_client
-.PHONY : benchmark_pingpong_header_body_client
-
-# fast build rule for target.
-benchmark_pingpong_header_body_client/fast:
-	$(MAKE) -f lib/evpp/benchmark/throughput_header_body/evpp/CMakeFiles/benchmark_pingpong_header_body_client.dir/build.make lib/evpp/benchmark/throughput_header_body/evpp/CMakeFiles/benchmark_pingpong_header_body_client.dir/build
-.PHONY : benchmark_pingpong_header_body_client/fast
-
-#=============================================================================
-# Target rules for targets named benchmark_pingpong_header_body_server
-
-# Build rule for target.
-benchmark_pingpong_header_body_server: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 benchmark_pingpong_header_body_server
-.PHONY : benchmark_pingpong_header_body_server
-
-# fast build rule for target.
-benchmark_pingpong_header_body_server/fast:
-	$(MAKE) -f lib/evpp/benchmark/throughput_header_body/evpp/CMakeFiles/benchmark_pingpong_header_body_server.dir/build.make lib/evpp/benchmark/throughput_header_body/evpp/CMakeFiles/benchmark_pingpong_header_body_server.dir/build
-.PHONY : benchmark_pingpong_header_body_server/fast
+test-msgpack/fast:
+	$(MAKE) -f lib/json/test/CMakeFiles/test-msgpack.dir/build.make lib/json/test/CMakeFiles/test-msgpack.dir/build
+.PHONY : test-msgpack/fast
 
 src/TinyChain.o: src/TinyChain.cpp.o
 
@@ -1793,33 +1169,6 @@ src/main.cpp.s:
 	$(MAKE) -f CMakeFiles/tinychain_cpp.dir/build.make CMakeFiles/tinychain_cpp.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
-src/sha256.o: src/sha256.cpp.o
-
-.PHONY : src/sha256.o
-
-# target to build an object file
-src/sha256.cpp.o:
-	$(MAKE) -f CMakeFiles/tinychain_cpp.dir/build.make CMakeFiles/tinychain_cpp.dir/src/sha256.cpp.o
-.PHONY : src/sha256.cpp.o
-
-src/sha256.i: src/sha256.cpp.i
-
-.PHONY : src/sha256.i
-
-# target to preprocess a source file
-src/sha256.cpp.i:
-	$(MAKE) -f CMakeFiles/tinychain_cpp.dir/build.make CMakeFiles/tinychain_cpp.dir/src/sha256.cpp.i
-.PHONY : src/sha256.cpp.i
-
-src/sha256.s: src/sha256.cpp.s
-
-.PHONY : src/sha256.s
-
-# target to generate assembly for a file
-src/sha256.cpp.s:
-	$(MAKE) -f CMakeFiles/tinychain_cpp.dir/build.make CMakeFiles/tinychain_cpp.dir/src/sha256.cpp.s
-.PHONY : src/sha256.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -1835,123 +1184,75 @@ help:
 	@echo "... edit_cache"
 	@echo "... package"
 	@echo "... tinychain_cpp"
-	@echo "... evpp_boost_static"
-	@echo "... evpp_concurrentqueue_static"
-	@echo "... evpp_concurrentqueue"
-	@echo "... evpp_static"
-	@echo "... evpp_boost"
-	@echo "... evpp_lite_static"
-	@echo "... evpp"
-	@echo "... evnsq_static"
-	@echo "... evnsq"
-	@echo "... evnsq_tail"
-	@echo "... unittest_evnsq_producer_with_auth"
-	@echo "... evmc"
-	@echo "... evmc_static"
-	@echo "... evmc_test"
 	@echo "... ContinuousCoverage"
 	@echo "... ContinuousTest"
 	@echo "... ContinuousBuild"
-	@echo "... ContinuousUpdate"
 	@echo "... ContinuousStart"
 	@echo "... ExperimentalBuild"
-	@echo "... ExperimentalSubmit"
 	@echo "... ExperimentalCoverage"
+	@echo "... ExperimentalSubmit"
+	@echo "... ContinuousUpdate"
 	@echo "... ExperimentalUpdate"
 	@echo "... ExperimentalStart"
 	@echo "... ContinuousSubmit"
 	@echo "... ExperimentalTest"
 	@echo "... NightlySubmit"
-	@echo "... evpp_unittest_concurrentqueue"
+	@echo "... NightlyMemCheck"
 	@echo "... ExperimentalConfigure"
 	@echo "... NightlyCoverage"
 	@echo "... NightlyTest"
 	@echo "... ContinuousMemCheck"
 	@echo "... NightlyBuild"
 	@echo "... NightlyConfigure"
-	@echo "... evpp_unittest_boost_lockfree"
 	@echo "... NightlyUpdate"
-	@echo "... Continuous"
-	@echo "... evpp_unittest"
-	@echo "... Experimental"
 	@echo "... ExperimentalMemCheck"
 	@echo "... ContinuousConfigure"
 	@echo "... NightlyMemoryCheck"
-	@echo "... NightlyMemCheck"
 	@echo "... NightlyStart"
 	@echo "... Nightly"
-	@echo "... test_evpp_stability"
-	@echo "... test_evpp_stability_concurrentqueue"
-	@echo "... test_evpp_stability_boost_lockfree"
-	@echo "... test_evpp_after_fork"
-	@echo "... example_pingpong_server"
-	@echo "... example_pingpong_client"
-	@echo "... example_timer05"
-	@echo "... example_timer04"
-	@echo "... example_timer03"
-	@echo "... example_httpecho"
-	@echo "... example_twisted_webserver"
-	@echo "... example_twisted_pubsubserver"
-	@echo "... example_tcp_server"
-	@echo "... example_signal02"
-	@echo "... example_dns_resolve"
-	@echo "... example_tcp_client"
-	@echo "... example_timer02"
-	@echo "... example_multi_accept"
-	@echo "... example_udpecho"
-	@echo "... example_signal01"
-	@echo "... example_timer01"
-	@echo "... example_tcpecho"
-	@echo "... example_evnsq_producer"
-	@echo "... example_evnsq_tail"
-	@echo "... example_chatroom_simple_client"
-	@echo "... example_chatroom_simple_server"
-	@echo "... example_recipes_self_control_timer_basic_01"
-	@echo "... example_recipes_self_control_timer_basic_02"
-	@echo "... example_recipes_self_control_timer_cancel_03"
-	@echo "... example_recipes_self_control_timer_periodic_04"
-	@echo "... example_http_client_request01"
-	@echo "... example_http_client_request05"
-	@echo "... example_http_client_request02"
-	@echo "... example_http_client_request03"
-	@echo "... example_http_client_request04"
-	@echo "... example_http_simple_proxy"
-	@echo "... example_c10m01"
-	@echo "... example_c10m_client"
-	@echo "... benchmark_tcp_asio_server"
-	@echo "... benchmark_tcp_asio_client"
-	@echo "... benchmark_tcp_libevent_server"
-	@echo "... benchmark_tcp_libevent_client"
-	@echo "... benchmark_pingpong_server"
-	@echo "... benchmark_pingpong_client_fixed_size"
-	@echo "... benchmark_pingpong_client"
-	@echo "... benchmark_gettimeofday"
-	@echo "... benchmark_http_libevent"
-	@echo "... benchmark_http_evpp"
-	@echo "... benchmark_ioevent_libevent"
-	@echo "... benchmark_ioevent_evpp_pipe_watcher"
-	@echo "... benchmark_ioevent_evpp"
-	@echo "... benchmark_fd_channel_vs_pipe_event_watcher"
-	@echo "... benchmark_post_task_concurrentqueue5"
-	@echo "... benchmark_post_task_concurrentqueue4"
-	@echo "... benchmark_post_task_concurrentqueue3"
-	@echo "... benchmark_post_task_boost_lockfree_queue5"
-	@echo "... benchmark_post_task3"
-	@echo "... benchmark_post_task_boost_lockfree_queue3"
-	@echo "... benchmark_post_task_boost_lockfree_queue2"
-	@echo "... benchmark_post_task_boost_lockfree_queue1"
-	@echo "... benchmark_post_task_concurrentqueue1"
-	@echo "... benchmark_post_task4"
-	@echo "... benchmark_post_task2"
-	@echo "... benchmark_post_task_concurrentqueue6"
-	@echo "... benchmark_post_task_concurrentqueue2"
-	@echo "... benchmark_post_task_boost_lockfree_queue6"
-	@echo "... benchmark_post_task5"
-	@echo "... benchmark_post_task6"
-	@echo "... benchmark_post_task_boost_lockfree_queue4"
-	@echo "... benchmark_post_task1"
-	@echo "... benchmark_pingpong_header_body_client"
-	@echo "... benchmark_pingpong_header_body_server"
+	@echo "... Continuous"
+	@echo "... Experimental"
+	@echo "... test-items"
+	@echo "... test-class_lexer"
+	@echo "... test-unicode"
+	@echo "... test-reference_access"
+	@echo "... test-udt"
+	@echo "... test-iterators2"
+	@echo "... test-to_chars"
+	@echo "... test-pointer_access"
+	@echo "... test-modifiers"
+	@echo "... test-readme"
+	@echo "... test-meta"
+	@echo "... test-merge_patch"
+	@echo "... test-json_pointer"
+	@echo "... test-concepts"
+	@echo "... test-json_patch"
+	@echo "... test-iterators1"
+	@echo "... test-wstring"
+	@echo "... test-testsuites"
+	@echo "... test-constructor2"
+	@echo "... test-deserialization"
+	@echo "... test-cbor"
+	@echo "... test-inspection"
+	@echo "... test-class_const_iterator"
+	@echo "... test-class_parser"
+	@echo "... test-element_access1"
+	@echo "... test-ubjson"
+	@echo "... test-noexcept"
+	@echo "... test-serialization"
+	@echo "... test-element_access2"
+	@echo "... test-class_iterator"
+	@echo "... test-allocator"
+	@echo "... test-alt-string"
+	@echo "... test-conversions"
+	@echo "... test-regression"
+	@echo "... test-constructor1"
+	@echo "... test-capacity"
+	@echo "... catch_main"
+	@echo "... test-convenience"
+	@echo "... test-comparison"
+	@echo "... test-algorithms"
+	@echo "... test-msgpack"
 	@echo "... src/TinyChain.o"
 	@echo "... src/TinyChain.i"
 	@echo "... src/TinyChain.s"
@@ -1961,9 +1262,6 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
-	@echo "... src/sha256.o"
-	@echo "... src/sha256.i"
-	@echo "... src/sha256.s"
 .PHONY : help
 
 
@@ -1977,3 +1275,4 @@ help:
 cmake_check_build_system:
 	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
+

@@ -8,6 +8,8 @@
 
 #include <string>
 #include <sstream>
+#include <memory>
+#include <nlohmann/json.hpp>
 
 class TxOut {
 public:
@@ -25,6 +27,13 @@ public:
         ss << "\"toAddress\":\"" << this->toAddress << "\"";
         ss << "}";
         return ss.str();
+    }
+
+    static std::shared_ptr<TxOut> deserialize(const nlohmann::json& json) {
+        auto txout = std::make_shared<TxOut>();
+        txout->value = json["value"];
+        txout->toAddress = json["toAddress"];
+        return txout;
     }
 };
 

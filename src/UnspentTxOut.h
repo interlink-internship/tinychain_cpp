@@ -7,6 +7,7 @@
 
 #include <string>
 #include <sstream>
+#include <memory>
 
 #include "OutPoint.h"
 
@@ -29,7 +30,14 @@ public:
     UnspentTxOut(const int value, const std::string toAddr, const std::string txid, const int txoutIdx, const bool isCoinbase, const int height)
         : value(value), toAddr(toAddr), txid(txid), txoutIdx(txoutIdx), isCoinbase(isCoinbase), height(height) {};
 
-    UnspentTxOut(const UnspentTxOut&);
+    UnspentTxOut(const UnspentTxOut& utxo) {
+        this->value = utxo.value;
+        this->toAddr = utxo.toAddr;
+        this->txid = utxo.txid;
+        this->txoutIdx = utxo.txoutIdx;
+        this->isCoinbase = utxo.isCoinbase;
+        this->height = utxo.height;
+    }
 
     std::string toString() {
         std::stringstream ss;
@@ -42,6 +50,17 @@ public:
         ss << "\"height\":" << this->height;
         ss << "}";
         return ss.str();
+    }
+
+    static std::shared_ptr<UnspentTxOut> deserialize(const nlohmann::json& json) {
+        auto tx = std::make_shared<UnspentTxOut>();
+        tx->value = json["value"];
+        tx->toAddr = json["toAddr"];
+        tx->txid = json["txid"];
+        tx->txoutIdx = json["txoutIdx"];
+        tx->isCoinbase = json["isCoinbase"];
+        tx->height = json["height"];
+        return tx;
     }
 
     OutPoint outpoint() {

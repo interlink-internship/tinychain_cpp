@@ -8,38 +8,14 @@
 #include <iostream>
 #include <map>
 #include <memory>
+
 #include "Transaction.h"
 #include "UnspentTxOut.h"
 
 class Mempool {
     public:
         std::map<std::string, std::shared_ptr<Transaction>> mempool;
-        Mempool() {
-        }
-
-        void addTxnToMempool(std::shared_ptr<Transaction> txn) {
-            if(this->mempool.count(txn->id()) > 0) {
-                std::cout << "txn " << txn->id() << " already seen\n";
-                return;
-            }
-
-            /*
-            try {
-                txn->validate(this->utxoSet, this->mempool, this->activeChain.size());
-                std::cout << "txn " << txn->id() << " added to mempool\n";
-                mempool.insert(std::make_pair(txn->id(), txn));
-
-                this->bloadCast();
-            } catch(const Transaction::TransactionValidationException& e) {
-                if(e.isOrphen) {
-                    std::cout << "txn " << txn.id() << " submitted as orphan\n";
-                    this->orphanTxns.push_back(txn);
-                } else {
-                    std::cout << "txn rejected\n";
-                }
-            }
-             */
-        }
+        Mempool() {}
 
         std::shared_ptr<UnspentTxOut> findUtxoInMempool(TxIn& txin) {
             auto txid = txin.toSpend->txid;
@@ -51,6 +27,16 @@ class Mempool {
             }
             auto txout = this->mempool[txid]->txouts[idx];
             return std::make_shared<UnspentTxOut>(txout->value, txout->toAddress, txid, idx, false, -1);
+        }
+
+        void add(std::string key, std::shared_ptr<Transaction> value) {
+            this->mempool.insert(std::make_pair(key, value));
+        }
+
+        std::shared_ptr<Transaction> get(std::string key) {
+            return (this->mempool.count(key) > 0)
+                        ? this->mempool[key]
+                        : nullptr;
         }
 
         void deleteUtxoById(const std::string id) {
